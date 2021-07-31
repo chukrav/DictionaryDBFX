@@ -38,7 +38,7 @@ public class WordsData {
         words = FXCollections.observableArrayList();
     }
 
-    public ObservableList<Word> getContacts() {
+    public ObservableList<Word> getWords() {
         return words;
     }
 
@@ -61,17 +61,31 @@ public class WordsData {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+//        if (!dictLines.isEmpty()) {
+//            for (int i = 0; i < dictLines.size(); ++i) {
+//                System.out.println(dictLines.get(i));
+//            }
+//        }
+
         if (!dictLines.isEmpty()) {
             for (int i = 0; i < dictLines.size(); ++i) {
                 String line = dictLines.get(i);
                 String[] parts = line.split("\t");
-                String word = parts[0];
-                int firstSq = parts[1].indexOf("[");
-                String transl = parts[1].substring(0, firstSq);
-                String transcript = parts[1].substring(firstSq).trim();
+                String word = parts[1];
+
+                String transcript = "[]";
+                String transl = parts[2];
+                int firstSq = parts[2].indexOf("[");
+                if (firstSq > 0) {
+                    transl = parts[2].substring(0, firstSq);
+                    transcript = parts[2].substring(firstSq).trim();
+                }
+//                System.out.println(transcript);
                 words.add(new Word(word, transl, transcript));
             }
         }
+
+
     }
 
     /*
