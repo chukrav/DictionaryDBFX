@@ -17,6 +17,9 @@ public class Controller {
         data.loadDict();
         dictionaryTable.setItems(data.getWords());
         dictionaryTable.setStyle("-fx-font-size:22px;");
+        //dictionaryTable.setStyle("-fx-background-color: #1d1d1d;");
     }
+
+
 
 }
