@@ -15,10 +15,7 @@ import javax.xml.stream.events.StartDocument;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class WordsData {
@@ -83,9 +80,17 @@ public class WordsData {
 //                System.out.println(transcript);
                 words.add(new Word(word, transl, transcript));
             }
+            Collections.sort(words, (w1,w2)->w1.getWord().compareTo(w2.getWord()));
+            initCounters();
         }
 
 
+    }
+
+    private void initCounters(){
+        for (int i=0;i< words.size();++i){
+            words.get(i).setCounter(i);
+        }
     }
 
     /*

@@ -1,5 +1,6 @@
 package sample.datamodel;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -10,6 +11,7 @@ public class Word {
     private SimpleStringProperty translate = new SimpleStringProperty("");
     private SimpleStringProperty transcript = new SimpleStringProperty("");
     //private SimpleStringProperty notes = new SimpleStringProperty("");
+    private SimpleIntegerProperty counter = new SimpleIntegerProperty();
 
     public Word() {
     }
@@ -18,6 +20,7 @@ public class Word {
         this.word.set(word);
         this.translate.set(translate);
         this.transcript.set(transcript);
+        this.counter.set(0);
 
         //this.notes.set(notes);
     }
@@ -56,6 +59,18 @@ public class Word {
 
     public void setTranscript(String transcript) {
         this.transcript.set(transcript);
+    }
+
+    public int getCounter() {
+        return counter.get();
+    }
+
+    public SimpleIntegerProperty counterProperty() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter.set(counter);
     }
 
     @Override

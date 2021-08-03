@@ -32,6 +32,11 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
             </columnResizePolicy>
             <columns>
+                <TableColumn text="#" minWidth="20" style="-fx-alignment: CENTER;">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="counter"/>
+                    </cellValueFactory>
+                </TableColumn>
 <!--                <TableColumn fx:id="firstColumn" text="word" prefWidth="200" style="-fx-background-color: black; -fx-text-fill: white;">-->
                 <TableColumn fx:id="firstColumn" text="word" prefWidth="200" >
                     <cellValueFactory>
