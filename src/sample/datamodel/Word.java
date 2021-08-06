@@ -75,8 +75,8 @@ public class Word {
 
     @Override
     public String toString() {
-        return  word +
-                "\t" + translate +
-                " " + transcript;
+        return  word.get() +
+                "\t" + translate.get() +
+                " " + transcript.get();
     }
 }

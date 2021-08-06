@@ -7,18 +7,24 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import sample.datamodel.Word;
 import sample.datamodel.WordsData;
+
+import java.io.IOException;
+import java.util.Optional;
 
 public class Controller {
 
     @FXML
     private TableView<Word> dictionaryTable;
+
+    @FXML
+    private BorderPane mainBoardPane;
 
     private WordsData data;
 
@@ -29,13 +35,17 @@ public class Controller {
         dictionaryTable.setStyle("-fx-font-size:22px;");
         //dictionaryTable.setStyle("-fx-background-color: #1d1d1d;");
 
-//        ObservableList<TableColumn<Word, ?>> columns = dictionaryTable.getColumns();
-//        for (int i=0;i<columns.size();++i){
-//            System.out.println(columns.get(i).getText());
-//        }
-//        TableColumn<Word,Integer> indexColumn = (TableColumn<Word, Integer>) dictionaryTable.getColumns().get(0);
-//        bindColumnToRowNum(indexColumn);
+        setMouseDoubleClickResponse();
 
+    }
+
+    public void setMouseDoubleClickResponse(){
+        dictionaryTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2){
+                Word word = dictionaryTable.getSelectionModel().getSelectedItem();
+                System.out.println(word.toString());
+            }
+        });
     }
 
     // Get TableColumnByName :)
@@ -64,6 +74,32 @@ public class Controller {
             return indexCell;
         });
 
+    }
+
+    @FXML
+    public void showDialog(){
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainBoardPane.getScene().getWindow());
+        try {
+            Parent root = FXMLLoader.load(getClass()
+                    .getResource("singleWordDialog.fxml"));
+            dialog.getDialogPane().setContent(root);
+
+        } catch (IOException e){
+            System.out.println("Couldn't load the dialog");
+            e.printStackTrace();
+        }
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK){
+            System.out.println("Ok was pressed");
+        }
+    }
+
+    @FXML
+    public void handleClickTableView(){
+        Word word = dictionaryTable.getSelectionModel().getSelectedItem();
+        System.out.println(word.toString());
     }
 
 

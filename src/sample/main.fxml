@@ -10,13 +10,14 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuItem?>
-<BorderPane fx:controller="sample.Controller"
+<BorderPane fx:id="mainBoardPane" fx:controller="sample.Controller"
             xmlns:fx="http://javafx.com/fxml">
     <top>
         <MenuBar>
             <menus>
                 <Menu text="Words">
                     <items>
+                        <MenuItem text="View" onAction="#showDialog"/>
                         <MenuItem text="Add ..."/>
                         <MenuItem text="Edit"/>
                     </items>
@@ -27,7 +28,8 @@
 
     <center>
         <!--        <TableView fx:id="dictionaryTable" style="-fx-font-size:18px; -fx-background-color: black;">-->
-        <TableView fx:id="dictionaryTable">
+<!--        <TableView fx:id="dictionaryTable" onMouseClicked="#handleClickTableView">-->
+        <TableView fx:id="dictionaryTable" >
             <columnResizePolicy>
                 <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/>
             </columnResizePolicy>
