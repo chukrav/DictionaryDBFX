@@ -25,6 +25,12 @@ public class Word {
         //this.notes.set(notes);
     }
 
+    public Word(Word word){
+        this.word.set(word.getWord());
+        this.setTranslate(word.getTranslate());
+        this.setTranscript(word.getTranscript());
+    }
+
     public String getWord() {
         return word.get();
     }

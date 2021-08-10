@@ -27,6 +27,7 @@ public class Controller {
     private BorderPane mainBoardPane;
 
     private WordsData data;
+    private Word selectedWord = new Word();
 
     public void initialize() {
         data = new WordsData();
@@ -39,11 +40,13 @@ public class Controller {
 
     }
 
-    public void setMouseDoubleClickResponse(){
+    public void setMouseDoubleClickResponse() {
         dictionaryTable.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2){
+            if (event.getClickCount() == 2) {
                 Word word = dictionaryTable.getSelectionModel().getSelectedItem();
                 System.out.println(word.toString());
+                selectedWord = new Word(word);
+                showDialog();
             }
         });
     }
@@ -51,12 +54,12 @@ public class Controller {
     // Get TableColumnByName :)
     private <T> TableColumn<T, ?> getTableColumnByName(TableView<T> tableView, String name) {
         for (TableColumn<T, ?> col : tableView.getColumns())
-            if (col.getText().equals(name)) return col ;
-        return null ;
+            if (col.getText().equals(name)) return col;
+        return null;
     }
 
 
-    private void bindColumnToRowNum(TableColumn<Word,Integer> indexColumn){
+    private void bindColumnToRowNum(TableColumn<Word, Integer> indexColumn) {
         indexColumn.setCellFactory(col -> {
             TableCell<Word, Integer> indexCell = new TableCell<>();
             ReadOnlyObjectProperty<TableRow> rowProperty = indexCell.tableRowProperty();
@@ -77,10 +80,11 @@ public class Controller {
     }
 
     @FXML
-    public void showDialog(){
+    public void showDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBoardPane.getScene().getWindow());
-        try {
+        dialog.setTitle("The word you clicked");
+     /*   try {
             Parent root = FXMLLoader.load(getClass()
                     .getResource("singleWordDialog.fxml"));
             dialog.getDialogPane().setContent(root);
@@ -89,24 +93,36 @@ public class Controller {
             System.out.println("Couldn't load the dialog");
             e.printStackTrace();
         }
+
+      */
+        dialog.setTitle("Edit Contact");
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("singleWordDialog.fxml"));
+
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+        } catch (IOException e) {
+            System.out.println("Couldn't load the dialog");
+            e.printStackTrace();
+            return;
+        }
+
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        DialogSingleWord wcontroller = fxmlLoader.getController();
+        wcontroller.presentWord(selectedWord);
+
+
         Optional<ButtonType> result = dialog.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK){
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             System.out.println("Ok was pressed");
         }
     }
 
     @FXML
-    public void handleClickTableView(){
+    public void handleClickTableView() {
         Word word = dictionaryTable.getSelectionModel().getSelectedItem();
         System.out.println(word.toString());
     }
-
-
-
-
-
-
 
 
 }
