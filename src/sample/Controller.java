@@ -37,6 +37,8 @@ public class Controller {
         //dictionaryTable.setStyle("-fx-background-color: #1d1d1d;");
 
         setMouseDoubleClickResponse();
+        DBDealer dealer = new DBDealer();
+        dealer.makeSelect();
 
     }
 
