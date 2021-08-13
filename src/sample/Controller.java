@@ -31,14 +31,15 @@ public class Controller {
 
     public void initialize() {
         data = new WordsData();
-        data.loadDict();
+//        data.loadDict();
+        data.loadDictDB();
         dictionaryTable.setItems(data.getWords());
         dictionaryTable.setStyle("-fx-font-size:22px;");
         //dictionaryTable.setStyle("-fx-background-color: #1d1d1d;");
 
         setMouseDoubleClickResponse();
-        DBDealer dealer = new DBDealer();
-        dealer.makeSelect();
+//        DBDealer dealer = new DBDealer();
+//        dealer.makeSelect();
 
     }
 
