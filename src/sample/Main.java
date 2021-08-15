@@ -13,6 +13,10 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         primaryStage.setTitle("My Dictionary");
         primaryStage.setScene(new Scene(root, 1000, 600));
+        primaryStage.setOnCloseRequest(e->{
+            DBDealer.getInstance().closeAll();
+            System.out.println("System quits =============>");
+        });
         primaryStage.show();
     }
 

@@ -22,6 +22,9 @@
                         <MenuItem text="Edit"/>
                     </items>
                 </Menu>
+                <Menu fx:id="dictionaries" text="Dictionaries">
+
+                </Menu>
             </menus>
         </MenuBar>
     </top>

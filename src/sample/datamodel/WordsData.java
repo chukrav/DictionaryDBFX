@@ -4,17 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import sample.DBDealer;
 
-import javax.xml.stream.XMLEventFactory;
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLEventWriter;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.Characters;
-import javax.xml.stream.events.EndElement;
-import javax.xml.stream.events.StartDocument;
-import javax.xml.stream.events.StartElement;
-import javax.xml.stream.events.XMLEvent;
 import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,8 +82,9 @@ public class WordsData {
 
     public void loadDictDB() {
         try {
-            dealer = new DBDealer();
-            dealer.makeSelect();
+//            dealer = new DBDealer();
+            dealer = DBDealer.getInstance();
+            dealer.connectDB();
 
             ResultSet results = dealer.getResults();
             while (results.next()) {
@@ -111,6 +101,8 @@ public class WordsData {
 
             Collections.sort(words, (w1, w2) -> w1.getWord().compareTo(w2.getWord()));
             initCounters();
+
+            //dealer.getInstance().getDictNames();
 
         } catch (SQLException e) {
             System.out.println("SQL exeption: " + e.getMessage());

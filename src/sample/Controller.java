@@ -24,6 +24,9 @@ public class Controller {
     private TableView<Word> dictionaryTable;
 
     @FXML
+    private Menu dictionaries;
+
+    @FXML
     private BorderPane mainBoardPane;
 
     private WordsData data;
