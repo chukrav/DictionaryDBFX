@@ -89,8 +89,9 @@ public class Controller {
             e.printStackTrace();
         }
 
-      */
+
         dialog.setTitle("Edit Contact");
+         */
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("singleWordDialog.fxml"));
 
