@@ -21,8 +21,6 @@ public class Word {
         this.translate.set(translate);
         this.transcript.set(transcript);
         this.counter.set(0);
-
-        //this.notes.set(notes);
     }
 
     public Word(Word word){
