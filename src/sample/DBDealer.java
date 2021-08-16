@@ -1,6 +1,8 @@
 package sample;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBDealer {
 
@@ -15,6 +17,9 @@ public class DBDealer {
     private static DBDealer instance = null;
     private Connection conn;
     private Statement statement;
+
+    private List<String> dictNames = new ArrayList<>();
+
 
     private DBDealer() {
 
@@ -54,16 +59,23 @@ public class DBDealer {
         return results;
     }
 
-    public void getDictNames() {
+    public List<String> getDictNames() {
         try {
             results = statement.executeQuery(selectDictNames);
             while (results.next()) {
-                System.out.println(results.getString("name"));
+                String name = results.getString("name");
+                //System.out.println(name);
+                dictNames.add(name);
             }
+            dictNames.remove(0);
+            return dictNames;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
+
+
 
     public void closeAll() {
         try {

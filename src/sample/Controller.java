@@ -16,6 +16,8 @@ import sample.datamodel.Word;
 import sample.datamodel.WordsData;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class Controller {
@@ -41,8 +43,7 @@ public class Controller {
         //dictionaryTable.setStyle("-fx-background-color: #1d1d1d;");
 
         setMouseDoubleClickResponse();
-//        DBDealer dealer = new DBDealer();
-//        dealer.makeSelect();
+        addDictNamesMenuItems();
 
     }
 
@@ -129,6 +130,17 @@ public class Controller {
     public void handleClickTableView() {
         Word word = dictionaryTable.getSelectionModel().getSelectedItem();
         System.out.println(word.toString());
+    }
+
+    public void addDictNamesMenuItems() {
+        List<String> dictItems = new ArrayList<>();
+        dictItems = DBDealer.getInstance().getDictNames();
+        for (int i = 0; i < dictItems.size(); ++i) {
+            MenuItem item = new MenuItem(dictItems.get(i));
+            item.setOnAction(e-> System.out.println(item.getText() + " clicked."));
+            dictionaries.getItems().add(item);
+        }
+
     }
 
 
