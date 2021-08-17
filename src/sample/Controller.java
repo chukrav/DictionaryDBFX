@@ -6,6 +6,7 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -143,5 +144,34 @@ public class Controller {
 
     }
 
+
+    @FXML
+    public void showDictLabels() {
+//        System.out.println("Dict Labels clicked ....");
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainBoardPane.getScene().getWindow());
+        dialog.setTitle("The dictionaries list");
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("dictLabels.fxml"));
+
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+        } catch (IOException e) {
+            System.out.println("Couldn't load the dialog");
+            e.printStackTrace();
+            return;
+        }
+
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+//        DialogSingleWord wcontroller = fxmlLoader.getController();
+//        wcontroller.presentWord(selectedWord);
+
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            System.out.println("Ok was pressed");
+        }
+    }
 
 }

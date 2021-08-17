@@ -13,7 +13,7 @@
 <BorderPane fx:id="mainBoardPane" fx:controller="sample.Controller"
             xmlns:fx="http://javafx.com/fxml">
     <top>
-        <MenuBar>
+        <MenuBar style="-fx-font-size:18px">
             <menus>
                 <Menu text="Words">
                     <items>
@@ -24,6 +24,11 @@
                 </Menu>
                 <Menu fx:id="dictionaries" text="Dictionaries">
 
+                </Menu>
+                <Menu text="Dictionaries DLG">
+                    <items>
+                        <MenuItem text="Show it" onAction="#showDictLabels"/>
+                    </items>
                 </Menu>
             </menus>
         </MenuBar>
