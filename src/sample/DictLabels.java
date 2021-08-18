@@ -20,8 +20,10 @@ public class DictLabels {
 
 
         lbl = new Label("VBox-2");
+
+//        item.setOnAction(e-> System.out.println(item.getText() + " clicked."));
         dictionaryGrid.add(lbl,0,1,1,1);
-        lbl = new Label("VBox-3");
+        lbl = new Label("VBox-3 loooooooooong laaaaaabel");
         dictionaryGrid.add(lbl,0,2,1,1);
         lbl = new Label("VBox-4");
         dictionaryGrid.add(lbl,1,0,1,1);
