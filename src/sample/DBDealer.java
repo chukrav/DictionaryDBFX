@@ -7,9 +7,16 @@ import java.util.List;
 public class DBDealer {
 
     private String connectionStatementStr = "jdbc:sqlite:data/dictionaryNZ.db";
-    private String selectHP1p1_4Statement = "SELECT a.id, a.word,a.translation, b.HP1_1_4 FROM " +
-            "dictionary a, tableStatus b WHERE a.id = b.id AND b.HP1_1_4 > 0;";
+    //    private String selectHP1p1_4Statement = "SELECT a.id, a.word,a.translation, b.HP1_1_4 FROM " +
+//            "dictionary a, tableStatus b WHERE a.id = b.id AND b.HP1_1_4 > 0;";
     private String selectDictNames = "select name from pragma_table_info(\"tableStatus\");";
+    private String selectAIDWordTranslateB = "SELECT a.id, a.word,a.translation, b."; // dict name "HP1_1_4"
+    private String dictName = "HP1_1_4";
+    private String fromWhereAndCondition = " FROM dictionary a, tableStatus b WHERE a.id = b.id AND b."; // "b.HP1_1_4"
+    private String conditioBody = " > 0;";
+    private String selectHP1p1_4Statement = selectAIDWordTranslateB + dictName + fromWhereAndCondition
+            + dictName + conditioBody;
+    private String selectDictionaryStatement = selectHP1p1_4Statement;
 
 
     private ResultSet results;
@@ -55,7 +62,23 @@ public class DBDealer {
 
     }
 
+    public void makeQuery(){
+        try {
+            results.close();
+            if (conn == null && statement == null){
+                conn = DriverManager.getConnection(connectionStatementStr);
+                statement = conn.createStatement();
+            }
+            results = statement.executeQuery(selectDictionaryStatement);
+
+
+        }catch (SQLException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+    }
+
     public ResultSet getResults() {
+       // System.out.println(results.getFetchSize());
         return results;
     }
 
@@ -76,7 +99,6 @@ public class DBDealer {
     }
 
 
-
     public void closeAll() {
         try {
             results.close();
@@ -86,5 +108,14 @@ public class DBDealer {
             e.printStackTrace();
         }
 
+    }
+    public void buildQuery(String dictStr){
+        selectDictionaryStatement = selectAIDWordTranslateB + dictStr + fromWhereAndCondition
+                + dictStr + conditioBody;
+//        System.out.println(selectDictionaryStatement);
+    }
+
+    public String getSelectDictionaryStatement() {
+        return selectDictionaryStatement;
     }
 }

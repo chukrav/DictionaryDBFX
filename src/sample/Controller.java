@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 import sample.datamodel.Word;
 import sample.datamodel.WordsData;
@@ -134,13 +135,43 @@ public class Controller {
     }
 
     public void addDictNamesMenuItems() {
+        SplitMenuButton splitMenuButton = new SplitMenuButton();
+        splitMenuButton.setPrefWidth(800);
+
         List<String> dictItems = new ArrayList<>();
         dictItems = DBDealer.getInstance().getDictNames();
         for (int i = 0; i < dictItems.size(); ++i) {
-            MenuItem item = new MenuItem(dictItems.get(i));
-            item.setOnAction(e-> System.out.println(item.getText() + " clicked."));
+            String dictNam = dictItems.get(i);
+            dictNam = dictNam.replaceAll("_","-");
+            MenuItem item = new MenuItem(dictNam);
+//            MenuItem item = new MenuItem();
+//            prepareMenuItem(item,dictItems.get(i),splitMenuButton);
+            item.setOnAction(e -> {
+//                System.out.println(item.getText() + " clicked.");
+                String itemText = item.getText();
+                itemText = itemText.replaceAll("-","_");
+                System.out.println(itemText + " clicked.");
+                data.loadDictDB(itemText);
+            });
+
+
             dictionaries.getItems().add(item);
         }
+
+    }
+
+    private void prepareMenuItem(MenuItem menuItem, String text, MenuButton splitMenuButton) {
+//        SplitMenuButton splitMenuButton = new SplitMenuButton();
+//        splitMenuButton.setPrefWidth(400);
+        Label label = new Label(text);
+//        Label label = new Label();
+        label.prefWidth(800);
+//        label.prefWidthProperty().bind(splitMenuButton.widthProperty());
+//        label.setText(text);
+//        label.setTextAlignment(TextAlignment.CENTER);
+        label.setStyle("-fx-text-color: red;");
+        menuItem.setGraphic(label);
+        //return menuItem;
 
     }
 

@@ -99,8 +99,45 @@ public class WordsData {
                 words.add(new Word(word, transl, transcript));
             }
 
+
             Collections.sort(words, (w1, w2) -> w1.getWord().compareTo(w2.getWord()));
             initCounters();
+
+            //dealer.getInstance().getDictNames();
+
+        } catch (SQLException e) {
+            System.out.println("SQL exeption: " + e.getMessage());
+        }
+    }
+
+    public void loadDictDB(String dictName) {
+        words.clear();
+        try {
+//            dealer = new DBDealer();
+            if (dealer == null){
+                dealer = DBDealer.getInstance();
+                dealer.connectDB();
+            }
+            dealer.buildQuery(dictName);
+
+            dealer.makeQuery();
+            ResultSet results = dealer.getResults();
+            while (results.next()) {
+                String word = results.getString("word");
+                String transl = results.getString("translation");
+                String transcript = "[]";
+                int firstSq = transl.indexOf("[");
+                if (firstSq > 0) {
+                    transcript = transl.substring(firstSq).trim();
+                    transl = transl.substring(0, firstSq);
+                }
+                words.add(new Word(word, transl, transcript));
+            }
+
+            Collections.sort(words, (w1, w2) -> w1.getWord().compareTo(w2.getWord()));
+            initCounters();
+
+
 
             //dealer.getInstance().getDictNames();
 
