@@ -144,8 +144,6 @@ public class Controller {
             String dictNam = dictItems.get(i);
             dictNam = dictNam.replaceAll("_","-");
             MenuItem item = new MenuItem(dictNam);
-//            MenuItem item = new MenuItem();
-//            prepareMenuItem(item,dictItems.get(i),splitMenuButton);
             item.setOnAction(e -> {
 //                System.out.println(item.getText() + " clicked.");
                 String itemText = item.getText();
@@ -154,27 +152,10 @@ public class Controller {
                 data.loadDictDB(itemText);
             });
 
-
             dictionaries.getItems().add(item);
         }
 
     }
-
-    private void prepareMenuItem(MenuItem menuItem, String text, MenuButton splitMenuButton) {
-//        SplitMenuButton splitMenuButton = new SplitMenuButton();
-//        splitMenuButton.setPrefWidth(400);
-        Label label = new Label(text);
-//        Label label = new Label();
-        label.prefWidth(800);
-//        label.prefWidthProperty().bind(splitMenuButton.widthProperty());
-//        label.setText(text);
-//        label.setTextAlignment(TextAlignment.CENTER);
-        label.setStyle("-fx-text-color: red;");
-        menuItem.setGraphic(label);
-        //return menuItem;
-
-    }
-
 
     @FXML
     public void showDictLabels() {
@@ -184,7 +165,7 @@ public class Controller {
         dialog.setTitle("The dictionaries list");
 
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("dictLabels.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("wordAddEdit.fxml"));
 
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());

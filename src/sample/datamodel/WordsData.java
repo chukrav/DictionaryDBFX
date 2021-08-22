@@ -137,10 +137,6 @@ public class WordsData {
             Collections.sort(words, (w1, w2) -> w1.getWord().compareTo(w2.getWord()));
             initCounters();
 
-
-
-            //dealer.getInstance().getDictNames();
-
         } catch (SQLException e) {
             System.out.println("SQL exeption: " + e.getMessage());
         }

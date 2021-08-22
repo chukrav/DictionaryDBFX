@@ -64,7 +64,7 @@ public class DBDealer {
 
     public void makeQuery(){
         try {
-            results.close();
+//            results.close();
             if (conn == null && statement == null){
                 conn = DriverManager.getConnection(connectionStatementStr);
                 statement = conn.createStatement();
