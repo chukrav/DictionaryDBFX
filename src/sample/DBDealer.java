@@ -119,3 +119,12 @@ public class DBDealer {
         return selectDictionaryStatement;
     }
 }
+
+//    INSERT INTO destination_table(id,name)
+//    SELECT id, name
+//    FROM source_table s
+//        WHERE NOT EXISTS (
+//        SELECT 1
+//        FROM destination_table d
+//        WHERE d.id = s.id
+//        );
