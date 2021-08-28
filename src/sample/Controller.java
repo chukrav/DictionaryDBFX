@@ -162,7 +162,7 @@ public class Controller {
 //        System.out.println("Dict Labels clicked ....");
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBoardPane.getScene().getWindow());
-        dialog.setTitle("The dictionaries list");
+        dialog.setTitle("Add a new word to the collection");
 
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("wordAddEdit.fxml"));

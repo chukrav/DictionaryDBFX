@@ -11,15 +11,15 @@
             fx:controller="sample.ControllerAddEdit"
             prefHeight="400.0" prefWidth="600.0">
     <headerText>
-        Picked item you want to see.
+        To add a new word.
     </headerText>
     <content>
         <GridPane hgap="10" vgap="10" style="-fx-font-size:22px;">
-            <Label fx:id="wordField" text="word" GridPane.rowIndex="0" GridPane.columnIndex="0"
-                   style="-fx-font-weight:900"/>
-            <Label fx:id="translateField" text=" *** " wrapText="true"
+            <TextField fx:id="wordField" text="word" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                       style="-fx-font-weight:500" onAction="#onEnterWord"/>
+            <TextArea fx:id="translateField" text=" *** " wrapText="true"
                    GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <Label fx:id="transcriptField" wrapText="true" text=""
+            <TextField fx:id="transcriptField"  text="[]"
                    GridPane.rowIndex="2" GridPane.columnIndex="0"/>
 
         </GridPane>
