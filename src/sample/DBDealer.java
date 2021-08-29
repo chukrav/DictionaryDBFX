@@ -176,6 +176,7 @@ public class DBDealer {
 
     public void insertNewWord(){
         String selectMaxID = "SELECT max(ID) FROM dictionary;";
+        String insertInTableStatus = "";
         if (wordID < 0){
             try {
                 results = statement.executeQuery(selectMaxID);
@@ -185,12 +186,13 @@ public class DBDealer {
                 statement.execute(insertQueryString);
 
 
+
             } catch (SQLException e) {
                 System.out.println("Can't insert a word.");
                 e.printStackTrace();
             }
         } else {
-            System.out.println();
+            System.out.println("The word is already exists.");
         }
 
     }
