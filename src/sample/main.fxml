@@ -31,6 +31,12 @@
                         <MenuItem text="Show it" onAction="#showDictLabels"/>
                     </items>
                 </Menu>
+                <Menu text="Run SQL">
+                    <items>
+                        <MenuItem text="Run"  onAction="#runSQLStatement"/>
+                    </items>
+
+                </Menu>
             </menus>
         </MenuBar>
     </top>

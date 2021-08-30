@@ -90,6 +90,7 @@ public class DBDealer {
 
     public List<String> getDictNames() {
         try {
+            dictNames = new ArrayList<>();
             results = statement.executeQuery(selectDictNames);
             while (results.next()) {
                 String name = results.getString("name");
@@ -195,6 +196,19 @@ public class DBDealer {
             System.out.println("The word is already exists.");
         }
 
+    }
+
+    public int getDBSize(){
+        String selectMaxID = "SELECT max(ID) FROM dictionary;";
+        try {
+            //results = statement.executeQuery(selectMAXID);
+            results = statement.executeQuery(selectMaxID);
+            wordID = results.getInt("max(ID)");
+            return wordID;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  -1;
     }
 }
 
