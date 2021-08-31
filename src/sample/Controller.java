@@ -188,23 +188,9 @@ public class Controller {
 
     @FXML
     public void runSQLStatement() {
-//        "INSERT INTO tableStatus(ID) VALUES(2838);"
-        int maxID = DBDealer.getInstance().getDBSize();
-        maxID++;
-        StringBuilder insertZeroRowColumns = new StringBuilder();
-        StringBuilder insertZeroRowValues = new StringBuilder();
-        insertZeroRowValues.append("VALUES("+maxID);
-        insertZeroRowColumns.append("INSERT INTO tableStatus(ID");
-        List<String> list = new ArrayList<>();
-        list = DBDealer.getInstance().getDictNames();
-        for (int i=0;i<list.size();++i){
-            insertZeroRowColumns.append(","+list.get(i));
-            insertZeroRowValues.append(","+0);
-            System.out.println(list.get(i));
-        }
-        insertZeroRowColumns.append(") "+insertZeroRowValues+");");
-        System.out.println(insertZeroRowColumns);
-//        System.out.println("****************** "+maxID);
-
+        DBDealer.getInstance().setWorkDictionary("HP3_16_22");
+        DBDealer.getInstance().insertNewWordToStatus();
     }
+
+
 }
