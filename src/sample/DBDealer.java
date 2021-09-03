@@ -184,6 +184,8 @@ public class DBDealer {
                 String insertQueryString = String.format("INSERT INTO dictionary (ID, word,translation)"+
                         "VALUES(%d, '%s','%s');",wordID,word.getWord(),word.getTranslate()+", "+word.getTranscript());
                 statement.execute(insertQueryString);
+                String insertStatusTable = String.format("select name from pragma_table_info('tableStatus') WHERE name NOT like 'id';");
+                results = statement.executeQuery(insertStatusTable);
 
 
 
