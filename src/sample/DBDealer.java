@@ -90,6 +90,7 @@ public class DBDealer {
 
     public List<String> getDictNames() {
         try {
+            dictNames = new ArrayList<>();
             results = statement.executeQuery(selectDictNames);
             while (results.next()) {
                 String name = results.getString("name");
@@ -174,21 +175,16 @@ public class DBDealer {
         return word;
     }
 
-    public void insertNewWord(){
-        String selectMaxID = "SELECT max(ID) FROM dictionary;";
-        String insertInTableStatus = "";
-        if (wordID < 0){
+    public void insertNewWordToDict() {
+        if (wordID < 0) {
             try {
-                results = statement.executeQuery(selectMaxID);
-                wordID = results.getInt("id");
-                String insertQueryString = String.format("INSERT INTO dictionary (ID, word,translation)"+
-                        "VALUES(%d, '%s','%s');",wordID,word.getWord(),word.getTranslate()+", "+word.getTranscript());
+                wordID = getDBSize();
+                ++wordID;
+                String insertQueryString = String.format("INSERT INTO dictionary (ID, word,translation)" +
+                        "VALUES(%d, '%s','%s');", wordID, word.getWord(), word.getTranslate() + ", " + word.getTranscript());
                 statement.execute(insertQueryString);
                 String insertStatusTable = String.format("select name from pragma_table_info('tableStatus') WHERE name NOT like 'id';");
                 results = statement.executeQuery(insertStatusTable);
-
-
-
             } catch (SQLException e) {
                 System.out.println("Can't insert a word.");
                 e.printStackTrace();
@@ -197,6 +193,68 @@ public class DBDealer {
             System.out.println("The word is already exists.");
         }
 
+    }
+
+    public void insertNewWordToDict(Word newWord){
+        word = new Word(newWord);
+        insertNewWordToDict();
+    }
+
+    public void insertNewWordToStatus() {
+        int maxID = getDBSize();
+        maxID++;
+        StringBuilder insertZeroRowColumns = new StringBuilder();
+        StringBuilder insertZeroRowValues = new StringBuilder();
+        insertZeroRowValues.append("VALUES(" + maxID);
+        insertZeroRowColumns.append("INSERT INTO tableStatus(ID");
+        List<String> list = new ArrayList<>();
+        list = getDictNames();
+        for (int i = 0; i < list.size(); ++i) {
+            insertZeroRowColumns.append("," + list.get(i));
+            insertZeroRowValues.append("," + 0);
+            System.out.println(list.get(i));
+        }
+        insertZeroRowColumns.append(") " + insertZeroRowValues + ");");
+        String updateStatusTable = String.format("UPDATE tableStatus SET %s = 1 WHERE id = %d;", workDictionary, maxID);
+        //System.out.println(insertZeroRowColumns);
+        try {
+            statement.execute(insertZeroRowColumns.toString());
+            statement.execute(updateStatusTable);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertNewWordToStatus(String dictName) {
+        workDictionary = dictName;
+        insertNewWordToStatus();
+    }
+
+    public void updateWordStatus(int id) {
+        String updateWordStatus = String.format("UPDATE tableStatus SET %s = 1 WHERE id = %d", workDictionary, id);
+        try {
+            statement.execute(updateWordStatus);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateWordStatus(String dictName, int id) {
+        workDictionary = dictName;
+        updateWordStatus(id);
+    }
+
+    public int getDBSize() {
+        String selectMaxID = "SELECT max(ID) FROM dictionary;";
+        try {
+            //results = statement.executeQuery(selectMAXID);
+            results = statement.executeQuery(selectMaxID);
+            wordID = results.getInt("max(ID)");
+            return wordID;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }
 
@@ -208,3 +266,8 @@ public class DBDealer {
 //        FROM destination_table d
 //        WHERE d.id = s.id
 //        );
+
+// Insert if not exist ...
+//   INSERT INTO memos(id,text)
+//   SELECT 5, 'text to insert'
+//   WHERE NOT EXISTS(SELECT 1 FROM memos WHERE id = 5 AND text = 'text to insert');

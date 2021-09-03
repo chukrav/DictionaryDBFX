@@ -186,4 +186,11 @@ public class Controller {
         }
     }
 
+    @FXML
+    public void runSQLStatement() {
+        DBDealer.getInstance().setWorkDictionary("HP3_16_22");
+        DBDealer.getInstance().insertNewWordToStatus();
+    }
+
+
 }
