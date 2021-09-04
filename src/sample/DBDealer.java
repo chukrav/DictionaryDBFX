@@ -245,6 +245,18 @@ public class DBDealer {
         updateWordStatus(id);
     }
 
+    //fr. водитель, шофёр возить  (кого-л.)  на автомобиле , [ʃəufə ]
+    public void updateWord(int id, Word updateWord){
+        String updateQuery = String.format("UPDATE dictionary SET word = \'%s\', translation = \'%s\' WHERE id = %d;",
+                updateWord.getWord(), updateWord.getTranslate() + updateWord.getTranscript(), id);
+        try {
+            statement.execute(updateQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public int getDBSize() {
         String selectMaxID = "SELECT max(ID) FROM dictionary;";
         try {

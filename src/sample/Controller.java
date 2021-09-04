@@ -193,11 +193,12 @@ public class Controller {
         DBDealer.getInstance().setWorkDictionary("HP3_16_22");
         //DBDealer.getInstance().insertNewWordToStatus();
         Word word = new Word();
-        word.setWord("undone");
-        word.setTranslate("прич. прош. вр. от undo развязанный, расстёгнутый несделанный; незавершённый, незаконченный книжн. или шутл. погубленный We are undone. — Мы погибли. ");
-        word.setTranscript("[ʌn'dʌn]");
+        word.setWord("chauffeur");
+        word.setTranslate("fr. водитель, шофёр возить  (кого-л.)  на автомобиле");
+        word.setTranscript("[''ʃəufə]");  // ***** !!!!!!!!!!!! **********
         //word.setTranscript("[]");
-        DBDealer.getInstance().insertNewWordToDict(word);
+        //DBDealer.getInstance().insertNewWordToDict(word);
+        DBDealer.getInstance().updateWord(2840,word);
     }
 
 
