@@ -195,7 +195,8 @@ public class Controller {
         Word word = new Word();
         word.setWord("chauffeur");
         word.setTranslate("fr. водитель, шофёр возить  (кого-л.)  на автомобиле");
-        word.setTranscript("[''ʃəufə]");  // ***** !!!!!!!!!!!! **********
+        word.setTranscript("[''ʃəufə]");  // ***** !!!!!!!!!!!! ********** Here protected with another ', and in
+        // DBDiller - with \' ------ !!!!!
         //word.setTranscript("[]");
         //DBDealer.getInstance().insertNewWordToDict(word);
         DBDealer.getInstance().updateWord(2840,word);
