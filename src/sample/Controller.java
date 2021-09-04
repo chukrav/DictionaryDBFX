@@ -158,7 +158,7 @@ public class Controller {
     }
 
     @FXML
-    public void showDictLabels() {
+    public void dlgNewWord() {
 //        System.out.println("Dict Labels clicked ....");
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBoardPane.getScene().getWindow());
@@ -183,13 +183,21 @@ public class Controller {
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             System.out.println("Ok was pressed");
+            ControllerAddEdit addEdit = fxmlLoader.getController();
+            addEdit.insertNewWord();
         }
     }
 
     @FXML
     public void runSQLStatement() {
         DBDealer.getInstance().setWorkDictionary("HP3_16_22");
-        DBDealer.getInstance().insertNewWordToStatus();
+        //DBDealer.getInstance().insertNewWordToStatus();
+        Word word = new Word();
+        word.setWord("undone");
+        word.setTranslate("прич. прош. вр. от undo развязанный, расстёгнутый несделанный; незавершённый, незаконченный книжн. или шутл. погубленный We are undone. — Мы погибли. ");
+        word.setTranscript("[ʌn'dʌn]");
+        //word.setTranscript("[]");
+        DBDealer.getInstance().insertNewWordToDict(word);
     }
 
 

@@ -183,8 +183,9 @@ public class DBDealer {
                 String insertQueryString = String.format("INSERT INTO dictionary (ID, word,translation)" +
                         "VALUES(%d, '%s','%s');", wordID, word.getWord(), word.getTranslate() + ", " + word.getTranscript());
                 statement.execute(insertQueryString);
-                String insertStatusTable = String.format("select name from pragma_table_info('tableStatus') WHERE name NOT like 'id';");
-                results = statement.executeQuery(insertStatusTable);
+//                String insertStatusTable = String.format("select name from pragma_table_info('tableStatus') WHERE name NOT like 'id';");
+//                results = statement.executeQuery(insertStatusTable);
+                insertNewWordToStatus();
             } catch (SQLException e) {
                 System.out.println("Can't insert a word.");
                 e.printStackTrace();
@@ -202,7 +203,7 @@ public class DBDealer {
 
     public void insertNewWordToStatus() {
         int maxID = getDBSize();
-        maxID++;
+        //maxID++;
         StringBuilder insertZeroRowColumns = new StringBuilder();
         StringBuilder insertZeroRowValues = new StringBuilder();
         insertZeroRowValues.append("VALUES(" + maxID);

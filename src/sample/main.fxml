@@ -26,9 +26,9 @@
                 <Menu fx:id="dictionaries" text="Dictionaries">
 
                 </Menu>
-                <Menu text="Dictionaries DLG">
+                <Menu text="Add/Edit">
                     <items>
-                        <MenuItem text="Show it" onAction="#showDictLabels"/>
+                        <MenuItem text="Add word" onAction="#dlgNewWord"/>
                     </items>
                 </Menu>
                 <Menu text="Run SQL">
