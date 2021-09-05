@@ -269,6 +269,20 @@ public class DBDealer {
         }
         return -1;
     }
+
+    public String selectFullDictName(String shortName){
+        String selectLongName = String.format("SELECT longName, parts FROM namesDicts WHERE shortName = '%s';",shortName);
+        try {
+            //results = statement.executeQuery(selectMAXID);
+            results = statement.executeQuery(selectLongName);
+           String longName = results.getString("longName");
+           String parts = results.getString("parts");
+            return longName+","+parts;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
 
 //    INSERT INTO destination_table(id,name)

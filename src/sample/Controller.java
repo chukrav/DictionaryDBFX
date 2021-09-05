@@ -33,6 +33,9 @@ public class Controller {
     @FXML
     private BorderPane mainBoardPane;
 
+    @FXML
+    Label dictionaryLabel;
+
     private WordsData data;
     private Word selectedWord = new Word();
 
@@ -150,6 +153,8 @@ public class Controller {
                 itemText = itemText.replaceAll("-","_");
                 System.out.println(itemText + " clicked.");
                 data.loadDictDB(itemText);
+                String currDictName = DBDealer.getInstance().selectFullDictName(itemText);
+                dictionaryLabel.setText(currDictName);
             });
 
             dictionaries.getItems().add(item);

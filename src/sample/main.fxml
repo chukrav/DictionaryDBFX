@@ -10,41 +10,47 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
 <BorderPane fx:id="mainBoardPane" fx:controller="sample.Controller"
             xmlns:fx="http://javafx.com/fxml">
     <top>
-        <MenuBar style="-fx-font-size:18px">
+        <HBox>
 
-            <menus>
-                <Menu text="Words">
-                    <items>
-                        <MenuItem text="View" onAction="#showDialog"/>
-                        <MenuItem text="Add ..."/>
-                        <MenuItem text="Edit"/>
-                    </items>
-                </Menu>
-                <Menu fx:id="dictionaries" text="Dictionaries">
+            <MenuBar style="-fx-font-size:18px">
 
-                </Menu>
-                <Menu text="Add/Edit">
-                    <items>
-                        <MenuItem text="Add word" onAction="#dlgNewWord"/>
-                    </items>
-                </Menu>
-                <Menu text="Run SQL">
-                    <items>
-                        <MenuItem text="Run"  onAction="#runSQLStatement"/>
-                    </items>
+                <menus>
+                    <Menu text="Words">
+                        <items>
+                            <MenuItem text="View" onAction="#showDialog"/>
+                            <MenuItem text="Add ..."/>
+                            <MenuItem text="Edit"/>
+                        </items>
+                    </Menu>
+                    <Menu fx:id="dictionaries" text="Dictionaries">
 
-                </Menu>
-            </menus>
-        </MenuBar>
+                    </Menu>
+                    <Menu text="Add/Edit">
+                        <items>
+                            <MenuItem text="Add word" onAction="#dlgNewWord"/>
+                        </items>
+                    </Menu>
+                    <Menu text="Run SQL">
+                        <items>
+                            <MenuItem text="Run" onAction="#runSQLStatement"/>
+                        </items>
+
+                    </Menu>
+                </menus>
+            </MenuBar>
+            <Label fx:id="dictionaryLabel" text="HP1. Harry potter and sorcerer's stone. Parts 1-4"
+                   style="-fx-font-size:20px; -fx-label-padding: 5px; -fx-font-weight:700;" prefWidth="550" alignment="CENTER_RIGHT" />
+        </HBox>
     </top>
 
     <center>
         <!--        <TableView fx:id="dictionaryTable" style="-fx-font-size:18px; -fx-background-color: black;">-->
-<!--        <TableView fx:id="dictionaryTable" onMouseClicked="#handleClickTableView">-->
-        <TableView fx:id="dictionaryTable" >
+        <!--        <TableView fx:id="dictionaryTable" onMouseClicked="#handleClickTableView">-->
+        <TableView fx:id="dictionaryTable">
             <columnResizePolicy>
                 <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/>
             </columnResizePolicy>
