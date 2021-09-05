@@ -54,7 +54,9 @@ public class ControllerAddEdit {
             Word word = new Word();
             word.setWord(wordField.getText());
             word.setTranslate(translateField.getText());
-            word.setTranscript(transcriptField.getText());
+            String transcriptTxt = transcriptField.getText();
+            transcriptTxt = transcriptTxt.replaceAll("'","''");
+            word.setTranscript(transcriptTxt);
             DBDealer.getInstance().insertNewWordToDict(word);
         } else {
             DBDealer.getInstance().insertNewWordToStatus();
