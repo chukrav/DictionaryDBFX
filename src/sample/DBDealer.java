@@ -27,7 +27,8 @@ public class DBDealer {
     private static DBDealer instance = null;
     private Connection conn;
     private Statement statement;
-    private String workDictionary = "HP3_16_22";
+//    private String workDictionary = "HP3_16_22";
+    private String workDictionary = dictName;
 
     private List<String> dictNames = new ArrayList<>();
     private Word word = new Word();
