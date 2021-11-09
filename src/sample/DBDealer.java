@@ -27,7 +27,8 @@ public class DBDealer {
     private static DBDealer instance = null;
     private Connection conn;
     private Statement statement;
-    private String workDictionary = "HP3_16_22";
+    private String workDictionary = dictName;
+//    private String workDictionary = "HP1_1_4";
 
     private List<String> dictNames = new ArrayList<>();
     private Word word = new Word();
@@ -118,6 +119,7 @@ public class DBDealer {
     }
 
     public void buildQuery(String dictStr) {
+        workDictionary = dictStr;
         selectDictionaryStatement = selectAIDWordTranslateB + dictStr + fromWhereAndCondition
                 + dictStr + conditioBody;
 //        System.out.println(selectDictionaryStatement);

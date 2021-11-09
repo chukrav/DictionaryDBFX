@@ -122,8 +122,11 @@ public class WordsData {
 
             dealer.makeQuery();
             ResultSet results = dealer.getResults();
+            String dictname = dealer.getWorkDictionary();
             while (results.next()) {
                 int ID = results.getInt("ID");
+
+                int cnt = results.getInt(dictname);
                 String word = results.getString("word");
                 String transl = results.getString("translation");
                 String transcript = "[]";
@@ -133,7 +136,7 @@ public class WordsData {
                     transl = transl.substring(0, firstSq);
                 }
 //                words.add(new Word(word, transl, transcript));
-                words.add(new Word(word, transl, transcript,ID));
+                words.add(new Word(word, transl, transcript,cnt));
             }
 
             Collections.sort(words, (w1, w2) -> w1.getWord().compareTo(w2.getWord()));
