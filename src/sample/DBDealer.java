@@ -12,7 +12,7 @@ public class DBDealer {
     //    private String selectHP1p1_4Statement = "SELECT a.id, a.word,a.translation, b.HP1_1_4 FROM " +
 //            "dictionary a, tableStatus b WHERE a.id = b.id AND b.HP1_1_4 > 0;";
     private String selectDictNames = "select name from pragma_table_info(\"tableStatus\");";
-    private String selectAIDWordTranslateB = "SELECT a.id, a.word,a.translation, b."; // dict name "HP1_1_4"
+    private String selectAIDWordTranslateB = "SELECT a.id, a.word,a.translation,a.rating, b."; // dict name "HP1_1_4"
     private String dictName = "HP1_1_4";
     private String fromWhereAndCondition = " FROM dictionary a, tableStatus b WHERE a.id = b.id AND b."; // "b.HP1_1_4"
     private String conditioBody = " > 0;";

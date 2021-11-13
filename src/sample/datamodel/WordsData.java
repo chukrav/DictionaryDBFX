@@ -89,16 +89,17 @@ public class WordsData {
             ResultSet results = dealer.getResults();
             String dictName = dealer.getWorkDictionary();
             while (results.next()) {
-                int counter = results.getInt(dictName);
+//                int counter = results.getInt(dictName);
                 String word = results.getString("word");
                 String transl = results.getString("translation");
+                int counter = results.getInt("rating");
                 String transcript = "[]";
                 int firstSq = transl.indexOf("[");
                 if (firstSq > 0) {
                     transcript = transl.substring(firstSq).trim();
                     transl = transl.substring(0, firstSq);
                 }
-                words.add(new Word(word, transl, transcript));
+                words.add(new Word(word, transl, transcript,counter));
             }
 
 

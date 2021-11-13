@@ -24,11 +24,20 @@ public class Word {
 
         //this.notes.set(notes);
     }
+    public Word(String word, String translate, String transcript,int counter) {
+        this.word.set(word);
+        this.translate.set(translate);
+        this.transcript.set(transcript);
+        this.counter.set(counter);
+
+        //this.notes.set(notes);
+    }
 
     public Word(Word word){
         this.word.set(word.getWord());
         this.setTranslate(word.getTranslate());
         this.setTranscript(word.getTranscript());
+        this.counter.set(word.getCounter());
     }
 
     public String getWord() {
