@@ -92,14 +92,14 @@ public class WordsData {
 //                int counter = results.getInt(dictName);
                 String word = results.getString("word");
                 String transl = results.getString("translation");
-                int counter = results.getInt("rating");
+                int rating = results.getInt("rating");
                 String transcript = "[]";
                 int firstSq = transl.indexOf("[");
                 if (firstSq > 0) {
                     transcript = transl.substring(firstSq).trim();
                     transl = transl.substring(0, firstSq);
                 }
-                words.add(new Word(word, transl, transcript,counter));
+                words.add(new Word(word, transl, transcript,rating));
             }
 
 
@@ -128,13 +128,14 @@ public class WordsData {
             while (results.next()) {
                 String word = results.getString("word");
                 String transl = results.getString("translation");
+                int rating = results.getInt("rating");
                 String transcript = "[]";
                 int firstSq = transl.indexOf("[");
                 if (firstSq > 0) {
                     transcript = transl.substring(firstSq).trim();
                     transl = transl.substring(0, firstSq);
                 }
-                words.add(new Word(word, transl, transcript));
+                words.add(new Word(word, transl, transcript, rating));
             }
 
             Collections.sort(words, (w1, w2) -> w1.getWord().compareTo(w2.getWord()));

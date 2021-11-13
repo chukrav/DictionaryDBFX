@@ -40,7 +40,7 @@ public class Controller {
     private Word selectedWord = new Word();
 
     public void initialize() {
-        setMyRawFactory();
+//        setMyRawFactory();
         data = new WordsData();
 //        data.loadDict();
         data.loadDictDB();
@@ -50,7 +50,7 @@ public class Controller {
 
         setMouseDoubleClickResponse();
         addDictNamesMenuItems();
-//        setMyRawFactory();
+        setMyRawFactory();
 
     }
 
@@ -72,7 +72,7 @@ public class Controller {
                 super.updateItem(item, empty);
                 if (item == null) {
                     setStyle("");
-                } else if (item.getCounter() > 0) {
+                } else if (item.getRating() > 0) {
                     setStyle("-fx-background-color: tomato;");
                 } else {
                     setStyle("");
