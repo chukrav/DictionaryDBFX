@@ -21,6 +21,7 @@
                    GridPane.rowIndex="1" GridPane.columnIndex="0"/>
             <TextField fx:id="transcriptField"  text="[]"
                    GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <CheckBox fx:id="chIshard" text="hard" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
 
         </GridPane>
     </content>

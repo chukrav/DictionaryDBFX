@@ -181,8 +181,9 @@ public class DBDealer {
             try {
                 wordID = getDBSize();
                 ++wordID;
-                String insertQueryString = String.format("INSERT INTO dictionary (ID, word,translation)" +
-                        "VALUES(%d, '%s','%s');", wordID, word.getWord(), word.getTranslate() + ", " + word.getTranscript());
+                String insertQueryString = String.format("INSERT INTO dictionary (ID, word,translation,rating)" +
+                        "VALUES(%d, '%s','%s',%d);", wordID, word.getWord(), word.getTranslate() + ", " + word.getTranscript(),
+                        word.getRating());
                 statement.execute(insertQueryString);
 //                String insertStatusTable = String.format("select name from pragma_table_info('tableStatus') WHERE name NOT like 'id';");
 //                results = statement.executeQuery(insertStatusTable);

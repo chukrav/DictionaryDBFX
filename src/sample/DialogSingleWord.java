@@ -24,10 +24,15 @@ public class DialogSingleWord {
         wordField.setText(word.getWord());
         translateField.setText(word.getTranslate());
         transcriptField.setText(word.getTranscript());
+        chIshard.setSelected(word.getRating()>0);
     }
 
-    public boolean isHardStatus(){
+    public boolean isHardStatus(){  // Is selected
         return chIshard.isSelected();
+    }
+
+    public void selectIshard(){
+        chIshard.setSelected(true);
     }
 
 

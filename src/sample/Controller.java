@@ -115,19 +115,7 @@ public class Controller {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBoardPane.getScene().getWindow());
         dialog.setTitle("The word you clicked");
-     /*   try {
-            Parent root = FXMLLoader.load(getClass()
-                    .getResource("singleWordDialog.fxml"));
-            dialog.getDialogPane().setContent(root);
 
-        } catch (IOException e){
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
-        }
-
-
-        dialog.setTitle("Edit Contact");
-         */
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("singleWordDialog.fxml"));
 
@@ -148,6 +136,8 @@ public class Controller {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             System.out.println("Ok was pressed");
             // got action if checked ! ------------------
+
+
         }
     }
 

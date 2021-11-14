@@ -108,6 +108,6 @@ public class Word {
     public String toString() {
         return  word.get() +
                 "\t" + translate.get() +
-                " " + transcript.get();
+                " " + transcript.get()+" "+rating.get();
     }
 }
