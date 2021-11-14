@@ -89,16 +89,17 @@ public class WordsData {
             ResultSet results = dealer.getResults();
             String dictName = dealer.getWorkDictionary();
             while (results.next()) {
-                int counter = results.getInt(dictName);
+//                int counter = results.getInt(dictName);
                 String word = results.getString("word");
                 String transl = results.getString("translation");
+                int rating = results.getInt("rating");
                 String transcript = "[]";
                 int firstSq = transl.indexOf("[");
                 if (firstSq > 0) {
                     transcript = transl.substring(firstSq).trim();
                     transl = transl.substring(0, firstSq);
                 }
-                words.add(new Word(word, transl, transcript));
+                words.add(new Word(word, transl, transcript,rating));
             }
 
 
@@ -124,21 +125,17 @@ public class WordsData {
 
             dealer.makeQuery();
             ResultSet results = dealer.getResults();
-            String dictname = dealer.getWorkDictionary();
             while (results.next()) {
-                int ID = results.getInt("ID");
-
-                int cnt = results.getInt(dictname);
                 String word = results.getString("word");
                 String transl = results.getString("translation");
+                int rating = results.getInt("rating");
                 String transcript = "[]";
                 int firstSq = transl.indexOf("[");
                 if (firstSq > 0) {
                     transcript = transl.substring(firstSq).trim();
                     transl = transl.substring(0, firstSq);
                 }
-//                words.add(new Word(word, transl, transcript));
-                words.add(new Word(word, transl, transcript,cnt));
+                words.add(new Word(word, transl, transcript, rating));
             }
 
             Collections.sort(words, (w1, w2) -> w1.getWord().compareTo(w2.getWord()));

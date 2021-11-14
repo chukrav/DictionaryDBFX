@@ -40,6 +40,7 @@ public class Controller {
     private Word selectedWord = new Word();
 
     public void initialize() {
+//        setMyRawFactory();
         data = new WordsData();
 //        data.loadDict();
         data.loadDictDB();
@@ -49,6 +50,7 @@ public class Controller {
 
         setMouseDoubleClickResponse();
         addDictNamesMenuItems();
+        setMyRawFactory();
 
     }
 
@@ -61,6 +63,23 @@ public class Controller {
                 showDialog();
             }
         });
+    }
+
+    public void setMyRawFactory() {
+        dictionaryTable.setRowFactory(tv -> new TableRow<Word>() {
+            @Override
+            protected void updateItem(Word item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null) {
+                    setStyle("");
+                } else if (item.getRating() > 0) {
+                    setStyle("-fx-background-color: tomato;");
+                } else {
+                    setStyle("");
+                }
+            }
+        });
+
     }
 
     // Get TableColumnByName :)
@@ -96,19 +115,7 @@ public class Controller {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBoardPane.getScene().getWindow());
         dialog.setTitle("The word you clicked");
-     /*   try {
-            Parent root = FXMLLoader.load(getClass()
-                    .getResource("singleWordDialog.fxml"));
-            dialog.getDialogPane().setContent(root);
 
-        } catch (IOException e){
-            System.out.println("Couldn't load the dialog");
-            e.printStackTrace();
-        }
-
-
-        dialog.setTitle("Edit Contact");
-         */
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("singleWordDialog.fxml"));
 
@@ -128,6 +135,9 @@ public class Controller {
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             System.out.println("Ok was pressed");
+            // got action if checked ! ------------------
+
+
         }
     }
 
@@ -145,12 +155,12 @@ public class Controller {
         dictItems = DBDealer.getInstance().getDictNames();
         for (int i = 0; i < dictItems.size(); ++i) {
             String dictNam = dictItems.get(i);
-            dictNam = dictNam.replaceAll("_","-");
+            dictNam = dictNam.replaceAll("_", "-");
             MenuItem item = new MenuItem(dictNam);
             item.setOnAction(e -> {
 //                System.out.println(item.getText() + " clicked.");
                 String itemText = item.getText();
-                itemText = itemText.replaceAll("-","_");
+                itemText = itemText.replaceAll("-", "_");
                 System.out.println(itemText + " clicked.");
                 data.loadDictDB(itemText);
                 String currDictName = DBDealer.getInstance().selectFullDictName(itemText);
@@ -204,7 +214,7 @@ public class Controller {
         // DBDiller - with \' ------ !!!!!
         //word.setTranscript("[]");
         //DBDealer.getInstance().insertNewWordToDict(word);
-        DBDealer.getInstance().updateWord(2840,word);
+        DBDealer.getInstance().updateWord(2840, word);
     }
 
 

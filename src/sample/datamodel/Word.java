@@ -12,6 +12,7 @@ public class Word {
     private SimpleStringProperty transcript = new SimpleStringProperty("");
     //private SimpleStringProperty notes = new SimpleStringProperty("");
     private SimpleIntegerProperty counter = new SimpleIntegerProperty();
+    private SimpleIntegerProperty rating = new SimpleIntegerProperty();
 
     public Word() {
     }
@@ -21,15 +22,16 @@ public class Word {
         this.translate.set(translate);
         this.transcript.set(transcript);
         this.counter.set(0);
+        this.rating.set(0);
 
         //this.notes.set(notes);
     }
-
-    public Word(String word, String translate, String transcript, int id) {
+    public Word(String word, String translate, String transcript,int rating) {
         this.word.set(word);
         this.translate.set(translate);
         this.transcript.set(transcript);
-        this.counter.set(id);
+        this.counter.set(0);
+        this.rating.set(rating);
 
         //this.notes.set(notes);
     }
@@ -38,6 +40,20 @@ public class Word {
         this.word.set(word.getWord());
         this.setTranslate(word.getTranslate());
         this.setTranscript(word.getTranscript());
+        this.counter.set(word.getCounter());
+        this.rating.set(word.getRating());
+    }
+
+    public void setRating(int rating) {
+        this.rating.set(rating);
+    }
+
+    public int getRating() {
+        return rating.get();
+    }
+
+    public SimpleIntegerProperty ratingProperty() {
+        return rating;
     }
 
     public String getWord() {
@@ -92,6 +108,6 @@ public class Word {
     public String toString() {
         return  word.get() +
                 "\t" + translate.get() +
-                " " + transcript.get();
+                " " + transcript.get()+" "+rating.get();
     }
 }

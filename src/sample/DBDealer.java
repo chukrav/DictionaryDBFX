@@ -12,7 +12,7 @@ public class DBDealer {
     //    private String selectHP1p1_4Statement = "SELECT a.id, a.word,a.translation, b.HP1_1_4 FROM " +
 //            "dictionary a, tableStatus b WHERE a.id = b.id AND b.HP1_1_4 > 0;";
     private String selectDictNames = "select name from pragma_table_info(\"tableStatus\");";
-    private String selectAIDWordTranslateB = "SELECT a.id, a.word,a.translation, b."; // dict name "HP1_1_4"
+    private String selectAIDWordTranslateB = "SELECT a.id, a.word,a.translation,a.rating, b."; // dict name "HP1_1_4"
     private String dictName = "HP1_1_4";
     private String fromWhereAndCondition = " FROM dictionary a, tableStatus b WHERE a.id = b.id AND b."; // "b.HP1_1_4"
     private String conditioBody = " > 0;";
@@ -27,7 +27,6 @@ public class DBDealer {
     private static DBDealer instance = null;
     private Connection conn;
     private Statement statement;
-
 //    private String workDictionary = "HP3_16_22";
     private String workDictionary = dictName;
 
@@ -120,7 +119,6 @@ public class DBDealer {
     }
 
     public void buildQuery(String dictStr) {
-        workDictionary = dictStr;
         selectDictionaryStatement = selectAIDWordTranslateB + dictStr + fromWhereAndCondition
                 + dictStr + conditioBody;
 //        System.out.println(selectDictionaryStatement);
@@ -183,8 +181,9 @@ public class DBDealer {
             try {
                 wordID = getDBSize();
                 ++wordID;
-                String insertQueryString = String.format("INSERT INTO dictionary (ID, word,translation)" +
-                        "VALUES(%d, '%s','%s');", wordID, word.getWord(), word.getTranslate() + ", " + word.getTranscript());
+                String insertQueryString = String.format("INSERT INTO dictionary (ID, word,translation,rating)" +
+                        "VALUES(%d, '%s','%s',%d);", wordID, word.getWord(), word.getTranslate() + ", " + word.getTranscript(),
+                        word.getRating());
                 statement.execute(insertQueryString);
 //                String insertStatusTable = String.format("select name from pragma_table_info('tableStatus') WHERE name NOT like 'id';");
 //                results = statement.executeQuery(insertStatusTable);

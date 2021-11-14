@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -24,6 +25,9 @@ public class ControllerAddEdit {
     @FXML
     private TextField transcriptField;
 
+    @FXML
+    private CheckBox chIshard;
+
     private boolean isWordExist = true;
 
     public void initialize() {
@@ -38,9 +42,13 @@ public class ControllerAddEdit {
         DBDealer dealer = DBDealer.getInstance();
         dealer.selectWordFromCollection(word);
         if (!dealer.getWord().getTranslate().isEmpty()) {
+            Word wordObj = dealer.getWord();
             isWordExist = true;
-            translateField.setText(dealer.getWord().getTranslate());
-            transcriptField.setText(dealer.getWord().getTranscript());
+//            translateField.setText(dealer.getWord().getTranslate());
+//            transcriptField.setText(dealer.getWord().getTranscript());
+            translateField.setText(wordObj.getTranslate());
+            transcriptField.setText(wordObj.getTranscript());
+            chIshard.setSelected(wordObj.getRating() > 0);
         } else {
             isWordExist = false;
             translateField.setText("");
@@ -57,6 +65,7 @@ public class ControllerAddEdit {
             String transcriptTxt = transcriptField.getText();
             transcriptTxt = transcriptTxt.replaceAll("'","''");
             word.setTranscript(transcriptTxt);
+            word.setRating(chIshard.isSelected() ? 1: 0);
             DBDealer.getInstance().insertNewWordToDict(word);
         } else {
             DBDealer.getInstance().insertNewWordToStatus();
