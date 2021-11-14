@@ -87,7 +87,9 @@ public class WordsData {
             dealer.connectDB();
 
             ResultSet results = dealer.getResults();
+            String dictName = dealer.getWorkDictionary();
             while (results.next()) {
+                int counter = results.getInt(dictName);
                 String word = results.getString("word");
                 String transl = results.getString("translation");
                 String transcript = "[]";
