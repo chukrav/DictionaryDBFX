@@ -151,19 +151,21 @@ public class DBDealer {
             String stranslate = "";
             String stranscript = "[]";
             wordID = -1;
+            int rating = 0;
             while (results.next()) {
                 wordID = results.getInt("id");
                 System.out.println(results.getString("word") + ", "
                         + results.getString("translation"));
                 sword = results.getString("word");
                 stranslate = results.getString("translation");
+                rating = results.getInt("rating");
                 int firstSq = stranslate.indexOf("[");
                 if (firstSq > 0) {
                     stranscript = stranslate.substring(firstSq).trim();
                     stranslate = stranslate.substring(0, firstSq);
                 }
             }
-            word = new Word(sword, stranslate, stranscript);
+            word = new Word(sword, stranslate, stranscript,rating);
             //results.close();
 
 
