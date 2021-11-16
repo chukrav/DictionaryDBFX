@@ -27,7 +27,7 @@ public class DBDealer {
     private static DBDealer instance = null;
     private Connection conn;
     private Statement statement;
-//    private String workDictionary = "HP3_16_22";
+    //    private String workDictionary = "HP3_16_22";
     private String workDictionary = dictName;
 
     private List<String> dictNames = new ArrayList<>();
@@ -151,10 +151,12 @@ public class DBDealer {
             String stranslate = "";
             String stranscript = "[]";
             wordID = -1;
+            int rating = 0;
             while (results.next()) {
                 wordID = results.getInt("id");
-                System.out.println(results.getString("word") + ", "
-                        + results.getString("translation"));
+//                System.out.println(results.getString("word") + ", "
+//                        + results.getString("translation"));
+                rating = results.getInt("rating");
                 sword = results.getString("word");
                 stranslate = results.getString("translation");
                 int firstSq = stranslate.indexOf("[");
@@ -163,7 +165,7 @@ public class DBDealer {
                     stranslate = stranslate.substring(0, firstSq);
                 }
             }
-            word = new Word(sword, stranslate, stranscript);
+            word = new Word(sword, stranslate, stranscript, rating);
             //results.close();
 
 
@@ -182,7 +184,7 @@ public class DBDealer {
                 wordID = getDBSize();
                 ++wordID;
                 String insertQueryString = String.format("INSERT INTO dictionary (ID, word,translation,rating)" +
-                        "VALUES(%d, '%s','%s',%d);", wordID, word.getWord(), word.getTranslate() + ", " + word.getTranscript(),
+                                "VALUES(%d, '%s','%s',%d);", wordID, word.getWord(), word.getTranslate() + ", " + word.getTranscript(),
                         word.getRating());
                 statement.execute(insertQueryString);
 //                String insertStatusTable = String.format("select name from pragma_table_info('tableStatus') WHERE name NOT like 'id';");
@@ -198,7 +200,7 @@ public class DBDealer {
 
     }
 
-    public void insertNewWordToDict(Word newWord){
+    public void insertNewWordToDict(Word newWord) {
         word = new Word(newWord);
         insertNewWordToDict();
     }
@@ -248,9 +250,24 @@ public class DBDealer {
     }
 
     //fr. водитель, шофёр возить  (кого-л.)  на автомобиле , [ʃəufə ]
-    public void updateWord(int id, Word updateWord){
-        String updateQuery = String.format("UPDATE dictionary SET word = \'%s\', translation = \'%s\' WHERE id = %d;",
-                updateWord.getWord(), updateWord.getTranslate() + updateWord.getTranscript(), id);
+//    public void updateWord(int id, Word updateWord) {
+    public void updateWord(Word updateWord) {
+        int id = updateWord.getCounter();
+        String updateQuery = String.format("UPDATE dictionary SET word = \'%s\', translation = \'%s\', rating = %d WHERE id = %d;",
+                updateWord.getWord(), updateWord.getTranslate() + updateWord.getTranscript(),
+                updateWord.getRating(), id);
+        try {
+            statement.execute(updateQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //    public void updateRating(int id, Word updateWord){
+    public void updateRating(Word updateWord) {
+        int id = updateWord.getCounter();
+        String updateQuery = String.format("UPDATE dictionary SET rating = %d WHERE id = %d;",
+                updateWord.getRating(), id);
         try {
             statement.execute(updateQuery);
         } catch (SQLException e) {
@@ -272,14 +289,14 @@ public class DBDealer {
         return -1;
     }
 
-    public String selectFullDictName(String shortName){
-        String selectLongName = String.format("SELECT longName, parts FROM namesDicts WHERE shortName = '%s';",shortName);
+    public String selectFullDictName(String shortName) {
+        String selectLongName = String.format("SELECT longName, parts FROM namesDicts WHERE shortName = '%s';", shortName);
         try {
             //results = statement.executeQuery(selectMAXID);
             results = statement.executeQuery(selectLongName);
-           String longName = results.getString("longName");
-           String parts = results.getString("parts");
-            return longName+","+parts;
+            String longName = results.getString("longName");
+            String parts = results.getString("parts");
+            return longName + "," + parts;
         } catch (SQLException e) {
             e.printStackTrace();
         }

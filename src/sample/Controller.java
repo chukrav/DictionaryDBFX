@@ -207,14 +207,16 @@ public class Controller {
     public void runSQLStatement() {
         DBDealer.getInstance().setWorkDictionary("HP3_16_22");
         //DBDealer.getInstance().insertNewWordToStatus();
+        int id = DBDealer.getInstance().getDBSize();
         Word word = new Word();
         word.setWord("chauffeur");
         word.setTranslate("fr. водитель, шофёр возить  (кого-л.)  на автомобиле");
         word.setTranscript("[''ʃəufə]");  // ***** !!!!!!!!!!!! ********** Here protected with another ', and in
         // DBDiller - with \' ------ !!!!!
+        word.setCounter(++id);
         //word.setTranscript("[]");
         //DBDealer.getInstance().insertNewWordToDict(word);
-        DBDealer.getInstance().updateWord(2840, word);
+        DBDealer.getInstance().updateWord(word);
     }
 
 
