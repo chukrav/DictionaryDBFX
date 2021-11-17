@@ -159,15 +159,15 @@ public class DBDealer {
                 rating = results.getInt("rating");
                 sword = results.getString("word");
                 stranslate = results.getString("translation");
+                rating = results.getInt("rating");
                 int firstSq = stranslate.indexOf("[");
                 if (firstSq > 0) {
                     stranscript = stranslate.substring(firstSq).trim();
                     stranslate = stranslate.substring(0, firstSq);
                 }
             }
-            word = new Word(sword, stranslate, stranscript, rating);
-            //results.close();
 
+            word = new Word(sword, stranslate, stranscript, rating);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -186,6 +186,7 @@ public class DBDealer {
                 String insertQueryString = String.format("INSERT INTO dictionary (ID, word,translation,rating)" +
                                 "VALUES(%d, '%s','%s',%d);", wordID, word.getWord(), word.getTranslate() + ", " + word.getTranscript(),
                         word.getRating());
+
                 statement.execute(insertQueryString);
 //                String insertStatusTable = String.format("select name from pragma_table_info('tableStatus') WHERE name NOT like 'id';");
 //                results = statement.executeQuery(insertStatusTable);

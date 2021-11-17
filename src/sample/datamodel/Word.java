@@ -26,6 +26,7 @@ public class Word {
 
         //this.notes.set(notes);
     }
+
     public Word(String word, String translate, String transcript,int rating) {
         this.word.set(word);
         this.translate.set(translate);

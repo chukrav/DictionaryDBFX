@@ -217,6 +217,7 @@ public class Controller {
         //word.setTranscript("[]");
         //DBDealer.getInstance().insertNewWordToDict(word);
         DBDealer.getInstance().updateWord(word);
+
     }
 
 
