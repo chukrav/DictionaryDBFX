@@ -167,6 +167,7 @@ public class Controller {
                 data.loadDictDB(itemText);
                 String currDictName = DBDealer.getInstance().selectFullDictName(itemText);
                 dictionaryLabel.setText(currDictName);
+                DBDealer.getInstance().setWorkDictionary(itemText);
             });
 
             dictionaries.getItems().add(item);
