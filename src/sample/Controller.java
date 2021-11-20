@@ -136,6 +136,8 @@ public class Controller {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             System.out.println("Ok was pressed");
             // got action if checked ! ------------------
+            wcontroller.checkUpdateRating(data);
+//            dictionaryTable.setItems(data.getWords());
 
 
         }

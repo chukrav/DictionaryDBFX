@@ -159,7 +159,6 @@ public class DBDealer {
                 rating = results.getInt("rating");
                 sword = results.getString("word");
                 stranslate = results.getString("translation");
-                rating = results.getInt("rating");
                 int firstSq = stranslate.indexOf("[");
                 if (firstSq > 0) {
                     stranscript = stranslate.substring(firstSq).trim();
@@ -218,7 +217,7 @@ public class DBDealer {
         for (int i = 0; i < list.size(); ++i) {
             insertZeroRowColumns.append("," + list.get(i));
             insertZeroRowValues.append("," + 0);
-            System.out.println(list.get(i));
+//            System.out.println(list.get(i));
         }
         insertZeroRowColumns.append(") " + insertZeroRowValues + ");");
         String updateStatusTable = String.format("UPDATE tableStatus SET %s = 1 WHERE id = %d;", workDictionary, maxID);
@@ -250,13 +249,25 @@ public class DBDealer {
         updateWordStatus(id);
     }
 
+    public void updateWordRating(String sword, int rating) {
+        selectWordFromCollection(sword);
+        String updateQuery = String.format("UPDATE dictionary SET rating = %d WHERE id = %d;",
+               rating, wordID);
+        try {
+            statement.execute(updateQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     //fr. водитель, шофёр возить  (кого-л.)  на автомобиле , [ʃəufə ]
 //    public void updateWord(int id, Word updateWord) {
     public void updateWord(Word updateWord) {
-        int id = updateWord.getCounter();
+//        int id = updateWord.getCounter();
+        selectWordFromCollection(updateWord.getWord());
         String updateQuery = String.format("UPDATE dictionary SET word = \'%s\', translation = \'%s\', rating = %d WHERE id = %d;",
                 updateWord.getWord(), updateWord.getTranslate() + updateWord.getTranscript(),
-                updateWord.getRating(), id);
+                updateWord.getRating(), wordID);
         try {
             statement.execute(updateQuery);
         } catch (SQLException e) {
@@ -267,8 +278,8 @@ public class DBDealer {
     //    public void updateRating(int id, Word updateWord){
     public void updateRating(Word updateWord) {
         int id = updateWord.getCounter();
-        String updateQuery = String.format("UPDATE dictionary SET rating = %d WHERE id = %d;",
-                updateWord.getRating(), id);
+        String updateQuery = String.format("UPDATE dictionary SET rating = %d WHERE word = \'%s\';",
+                updateWord.getRating(), updateWord.getWord());
         try {
             statement.execute(updateQuery);
         } catch (SQLException e) {

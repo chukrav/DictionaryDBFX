@@ -164,6 +164,10 @@ public class WordsData {
         fd.close();
     }
 
+    public Word findWord(String sword){
+        return words.stream().filter(mword -> sword.equals(mword.getWord())).findFirst().orElse(null);
+    }
+
 
 
 
