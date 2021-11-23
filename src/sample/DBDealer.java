@@ -206,33 +206,52 @@ public class DBDealer {
     }
 
     public void insertNewWordToStatus() {
-        int maxID = getDBSize();
-        //maxID++;
-        StringBuilder insertZeroRowColumns = new StringBuilder();
-        StringBuilder insertZeroRowValues = new StringBuilder();
-        insertZeroRowValues.append("VALUES(" + maxID);
-        insertZeroRowColumns.append("INSERT INTO tableStatus(ID");
-        List<String> list = new ArrayList<>();
-        list = getDictNames();
-        for (int i = 0; i < list.size(); ++i) {
-            insertZeroRowColumns.append("," + list.get(i));
-            insertZeroRowValues.append("," + 0);
+        if (!checkInStatusDict()){
+            int maxID = getDBSize();
+            //maxID++;
+            StringBuilder insertZeroRowColumns = new StringBuilder();
+            StringBuilder insertZeroRowValues = new StringBuilder();
+            insertZeroRowValues.append("VALUES(" + maxID);
+            insertZeroRowColumns.append("INSERT INTO tableStatus(ID");
+            List<String> list = new ArrayList<>();
+            list = getDictNames();
+            for (int i = 0; i < list.size(); ++i) {
+                insertZeroRowColumns.append("," + list.get(i));
+                insertZeroRowValues.append("," + 0);
 //            System.out.println(list.get(i));
-        }
-        insertZeroRowColumns.append(") " + insertZeroRowValues + ");");
-        String updateStatusTable = String.format("UPDATE tableStatus SET %s = 1 WHERE id = %d;", workDictionary, maxID);
-        //System.out.println(insertZeroRowColumns);
-        try {
-            statement.execute(insertZeroRowColumns.toString());
-            statement.execute(updateStatusTable);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            }
+            insertZeroRowColumns.append(") " + insertZeroRowValues + ");");
+            String updateStatusTable = String.format("UPDATE tableStatus SET %s = 1 WHERE id = %d;", workDictionary, maxID);
+            //System.out.println(insertZeroRowColumns);
+            try {
+                statement.execute(insertZeroRowColumns.toString());
+                statement.execute(updateStatusTable);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void insertNewWordToStatus(String dictName) {
         workDictionary = dictName;
         insertNewWordToStatus();
+    }
+
+    public boolean checkInStatusDict() {
+//        SELECT id, HP3_16_22 FROM tableStatus WHERE id = 2844;
+        int id = -1;
+        boolean returnCheck = false;
+        String query = String.format("SELECT id, '%s' FROM tableStatus WHERE id = %d;", workDictionary, wordID);
+        try {
+            results = statement.executeQuery(query);
+            while (results.next()) {
+                id = results.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        returnCheck = id > 0? true: false;
+        return returnCheck;
     }
 
     public void updateWordStatus(int id) {
@@ -252,7 +271,7 @@ public class DBDealer {
     public void updateWordRating(String sword, int rating) {
         selectWordFromCollection(sword);
         String updateQuery = String.format("UPDATE dictionary SET rating = %d WHERE id = %d;",
-               rating, wordID);
+                rating, wordID);
         try {
             statement.execute(updateQuery);
         } catch (SQLException e) {
