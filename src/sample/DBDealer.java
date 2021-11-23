@@ -206,7 +206,7 @@ public class DBDealer {
     }
 
     public void insertNewWordToStatus() {
-        if (!checkInStatusDict()){
+        if (!checkInStatusDict()) {
             int maxID = getDBSize();
             //maxID++;
             StringBuilder insertZeroRowColumns = new StringBuilder();
@@ -250,7 +250,7 @@ public class DBDealer {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        returnCheck = id > 0? true: false;
+        returnCheck = id > 0 ? true : false;
         return returnCheck;
     }
 
@@ -332,6 +332,17 @@ public class DBDealer {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void selectHardWords() {
+//        SELECT a.id, a.word, a.translation FROM dictionary a WHERE a.rating > 0;
+        String requestHardWords = "SELECT a.id, a.word, a.translation FROM dictionary a WHERE a.rating > 0;";
+        try {
+            results = statement.executeQuery(requestHardWords);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

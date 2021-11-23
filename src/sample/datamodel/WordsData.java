@@ -82,31 +82,12 @@ public class WordsData {
 
     public void loadDictDB() {
         try {
-//            dealer = new DBDealer();
             dealer = DBDealer.getInstance();
             dealer.connectDB();
 
             ResultSet results = dealer.getResults();
-            String dictName = dealer.getWorkDictionary();
-            while (results.next()) {
-//                int counter = results.getInt(dictName);
-                String word = results.getString("word");
-                String transl = results.getString("translation");
-                int rating = results.getInt("rating");
-                String transcript = "[]";
-                int firstSq = transl.indexOf("[");
-                if (firstSq > 0) {
-                    transcript = transl.substring(firstSq).trim();
-                    transl = transl.substring(0, firstSq);
-                }
-                words.add(new Word(word, transl, transcript,rating));
-            }
-
-
-            Collections.sort(words, (w1, w2) -> w1.getWord().compareTo(w2.getWord()));
-            initCounters();
-
-            //dealer.getInstance().getDictNames();
+            //String dictName = dealer.getWorkDictionary();
+            updateWords(results);
 
         } catch (SQLException e) {
             System.out.println("SQL exeption: " + e.getMessage());
@@ -114,10 +95,8 @@ public class WordsData {
     }
 
     public void loadDictDB(String dictName) {
-        words.clear();
         try {
-//            dealer = new DBDealer();
-            if (dealer == null){
+            if (dealer == null) {
                 dealer = DBDealer.getInstance();
                 dealer.connectDB();
             }
@@ -125,27 +104,47 @@ public class WordsData {
 
             dealer.makeQuery();
             ResultSet results = dealer.getResults();
-            while (results.next()) {
-                String word = results.getString("word");
-                String transl = results.getString("translation");
-                int rating = results.getInt("rating");
-                String transcript = "[]";
-                int firstSq = transl.indexOf("[");
-                if (firstSq > 0) {
-                    transcript = transl.substring(firstSq).trim();
-                    transl = transl.substring(0, firstSq);
-                }
-                words.add(new Word(word, transl, transcript, rating));
-            }
+            updateWords(results);
 
-            Collections.sort(words, (w1, w2) -> w1.getWord().compareTo(w2.getWord()));
-            initCounters();
+        } catch (SQLException e) {
+            System.out.println("SQL exeption: " + e.getMessage());
+        }
+    }
+
+    public void showHardWords(){
+        try {
+            if (dealer == null) {
+                dealer = DBDealer.getInstance();
+                dealer.connectDB();
+            }
+            dealer.selectHardWords();
+            ResultSet results = dealer.getResults();
+            updateWords(results);
 
         } catch (SQLException e) {
             System.out.println("SQL exeption: " + e.getMessage());
         }
 
+    }
 
+    public void updateWords(ResultSet results) throws SQLException {
+        words.clear();
+
+        while (results.next()) {
+            String word = results.getString("word");
+            String transl = results.getString("translation");
+            int rating = results.getInt("rating");
+            String transcript = "[]";
+            int firstSq = transl.indexOf("[");
+            if (firstSq > 0) {
+                transcript = transl.substring(firstSq).trim();
+                transl = transl.substring(0, firstSq);
+            }
+            words.add(new Word(word, transl, transcript, rating));
+        }
+
+        Collections.sort(words, (w1, w2) -> w1.getWord().compareTo(w2.getWord()));
+        initCounters();
     }
 
     private void initCounters() {
@@ -164,11 +163,9 @@ public class WordsData {
         fd.close();
     }
 
-    public Word findWord(String sword){
+    public Word findWord(String sword) {
         return words.stream().filter(mword -> sword.equals(mword.getWord())).findFirst().orElse(null);
     }
-
-
 
 
 }

@@ -223,5 +223,10 @@ public class Controller {
 
     }
 
+    @FXML
+    public void showHardWords(){
+        data.showHardWords();
+    }
+
 
 }

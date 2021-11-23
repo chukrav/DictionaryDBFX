@@ -32,6 +32,7 @@
                     <Menu text="Add/Edit">
                         <items>
                             <MenuItem text="Add word" onAction="#dlgNewWord"/>
+                            <MenuItem text="Show hard words" onAction="#showHardWords"/>
                         </items>
                     </Menu>
                     <Menu text="Run SQL">
