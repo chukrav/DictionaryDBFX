@@ -336,7 +336,8 @@ public class DBDealer {
 
     public void selectHardWords() {
 //        SELECT a.id, a.word, a.translation FROM dictionary a WHERE a.rating > 0;
-        String requestHardWords = "SELECT a.id, a.word, a.translation FROM dictionary a WHERE a.rating > 0;";
+//        String requestHardWords = "SELECT a.id, a.word, a.translation FROM dictionary a WHERE a.rating > 0;";
+        String requestHardWords = "SELECT * FROM dictionary WHERE rating > 0;";
         try {
             results = statement.executeQuery(requestHardWords);
 
