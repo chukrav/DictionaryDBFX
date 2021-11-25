@@ -11,12 +11,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 import sample.datamodel.Word;
 import sample.datamodel.WordsData;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,7 @@ public class Controller {
         //dictionaryTable.setStyle("-fx-background-color: #1d1d1d;");
 
         setMouseDoubleClickResponse();
+        setKeyEnterResponse();
         addDictNamesMenuItems();
         setMyRawFactory();
 
@@ -61,6 +64,19 @@ public class Controller {
                 System.out.println(word.toString());
                 selectedWord = new Word(word);
                 showDialog();
+                data.refreshDictDB();
+            }
+        });
+    }
+
+    public void setKeyEnterResponse(){
+        dictionaryTable.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER){
+//                System.out.println("========Enter pressed!=====");
+//                Word word = dictionaryTable.getSelectionModel().getSelectedItem();
+//                System.out.println(word.toString());
+                dlgNewWord();
+                data.refreshDictDB();
             }
         });
     }
@@ -165,6 +181,7 @@ public class Controller {
                 itemText = itemText.replaceAll("-", "_");
                 System.out.println(itemText + " clicked.");
                 data.loadDictDB(itemText);
+                data.setCurrDictionaryName(itemText);
                 String currDictName = DBDealer.getInstance().selectFullDictName(itemText);
                 dictionaryLabel.setText(currDictName);
                 DBDealer.getInstance().setWorkDictionary(itemText);

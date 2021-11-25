@@ -23,6 +23,7 @@ public class WordsData {
 
     private ObservableList<Word> words;
     private DBDealer dealer;
+    private String currDictionaryName = "";
 
     public WordsData() {
         words = FXCollections.observableArrayList();
@@ -111,6 +112,23 @@ public class WordsData {
         }
     }
 
+    public void refreshDictDB(){
+        try {
+            if (dealer == null) {
+                dealer = DBDealer.getInstance();
+                dealer.connectDB();
+            }
+            dealer.buildQuery(currDictionaryName);
+
+            dealer.makeQuery();
+            ResultSet results = dealer.getResults();
+            updateWords(results);
+
+        } catch (SQLException e) {
+            System.out.println("SQL exeption: " + e.getMessage());
+        }
+    }
+
     public void showHardWords(){
         try {
             if (dealer == null) {
@@ -167,5 +185,11 @@ public class WordsData {
         return words.stream().filter(mword -> sword.equals(mword.getWord())).findFirst().orElse(null);
     }
 
+    public String getCurrDictionaryName() {
+        return currDictionaryName;
+    }
 
+    public void setCurrDictionaryName(String currDictionaryName) {
+        this.currDictionaryName = currDictionaryName;
+    }
 }
