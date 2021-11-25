@@ -89,7 +89,8 @@ public class Controller {
                 if (item == null) {
                     setStyle("");
                 } else if (item.getRating() > 0) {
-                    setStyle("-fx-background-color: tomato;");
+//                    setStyle("-fx-background-color: tomato;"); //#d0fabe <- brighter
+                    setStyle("-fx-background-color: #3cba06;");
                 } else {
                     setStyle("");
                 }
