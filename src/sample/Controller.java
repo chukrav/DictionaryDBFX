@@ -90,7 +90,7 @@ public class Controller {
                     setStyle("");
                 } else if (item.getRating() > 0) {
 //                    setStyle("-fx-background-color: tomato;"); //#d0fabe <- brighter
-                    setStyle("-fx-background-color: #3cba06;");
+                    setStyle("-fx-background-color: #d0fabe;-fx-text-background-color: #34013b;");
                 } else {
                     setStyle("");
                 }

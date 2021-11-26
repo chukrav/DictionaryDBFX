@@ -19,11 +19,11 @@
             <MenuBar style="-fx-font-size:18px">
 
                 <menus>
-                    <Menu text="Words">
+                    <Menu text="Manage Dicts">
                         <items>
-                            <MenuItem text="View" onAction="#showDialog"/>
-                            <MenuItem text="Add ..."/>
-                            <MenuItem text="Edit"/>
+                            <MenuItem text="New dictionary" onAction="#showDialog"/>
+                            <MenuItem text="Set working dictionary"/>
+                            <MenuItem text="Info"/>
                         </items>
                     </Menu>
                     <Menu fx:id="dictionaries" text="Dictionaries">
