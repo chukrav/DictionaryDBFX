@@ -90,7 +90,7 @@ public class Controller {
                     setStyle("");
                 } else if (item.getRating() > 0) {
 //                    setStyle("-fx-background-color: tomato;"); //#d0fabe <- brighter
-                    setStyle("-fx-background-color: #d0fabe;-fx-text-background-color: #34013b;");
+                    setStyle("-fx-background-color: #fff8a8;-fx-text-background-color: #34013b;");
                 } else {
                     setStyle("");
                 }
@@ -154,6 +154,39 @@ public class Controller {
             System.out.println("Ok was pressed");
             // got action if checked ! ------------------
             wcontroller.checkUpdateRating(data);
+//            dictionaryTable.setItems(data.getWords());
+
+
+        }
+    }
+
+    @FXML
+    public void showNewDictDialog() {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(mainBoardPane.getScene().getWindow());
+        dialog.setTitle("Create a new dictionary.");
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("DialogNewDict.fxml"));
+
+        try {
+            dialog.getDialogPane().setContent(fxmlLoader.load());
+        } catch (IOException e) {
+            System.out.println("Couldn't load the dialog");
+            e.printStackTrace();
+            return;
+        }
+
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        DialogNewDict wcontroller = fxmlLoader.getController();
+        //wcontroller.presentWord(selectedWord);
+
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            System.out.println("Ok was pressed");
+            // got action if checked ! ------------------
+            //wcontroller.checkUpdateRating(data);
 //            dictionaryTable.setItems(data.getWords());
 
 

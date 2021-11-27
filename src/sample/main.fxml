@@ -21,7 +21,7 @@
                 <menus>
                     <Menu text="Manage Dicts">
                         <items>
-                            <MenuItem text="New dictionary" onAction="#showDialog"/>
+                            <MenuItem text="New dictionary" onAction="#showNewDictDialog"/>
                             <MenuItem text="Set working dictionary"/>
                             <MenuItem text="Info"/>
                         </items>
