@@ -192,4 +192,12 @@ public class WordsData {
     public void setCurrDictionaryName(String currDictionaryName) {
         this.currDictionaryName = currDictionaryName;
     }
+
+    public void createNewDict(String dictName, String dictTitle, String startDate){
+//        dictName = 'HP3_22_27' <- only with underscores!
+//        dictTitle = '3. Harry Potter and the prisoner of Azkaban, Parts 16-22' <- split by ,
+        dealer.createNewDictionary(dictName, dictTitle, startDate);
+        currDictionaryName = dictName;
+        loadDictDB(dictName);
+    }
 }

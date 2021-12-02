@@ -345,6 +345,42 @@ public class DBDealer {
             e.printStackTrace();
         }
     }
+
+    public void createNewDictionary(String dictName, String dictTitle, String startDate) {
+        //        Put name like HP3-16-22 ???!!!!
+//        ALTER TABLE tableStatus ADD testDict INTEGER;
+//        UPDATE tableStatus SET testDict = 0;
+//        ALTER TABLE tableStatus RENAME COLUMN testDict TO HP3_16_22;
+//        INSERT INTO tableStatus(ID) VALUES(2838);
+//
+        String createNewDictRequest = String.format("ALTER TABLE tableStatus ADD '%s' INTEGER;", dictName);
+        String setTableStatusColumnZero = String.format("UPDATE tableStatus SET '%s' = 0;", dictName);
+
+        try {
+            statement.execute(createNewDictRequest);
+            statement.execute(setTableStatusColumnZero);
+            updateDictTitlesTable(dictName,dictTitle, startDate);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateDictTitlesTable(String dictName, String dictTitle, String startDate) {
+//        dictTitle = '3. Harry Potter and the prisoner of Azkaban, Parts 16-22' <- split by ,
+//        INSERT INTO namesDicts(id,shortName,longName,parts) VALUES(15,'HP3_22_27','3. Harry Potter and the prisoner of Azkaban','Parts 16-22');
+        String[] longName = dictTitle.split(",");
+        String selectMaxID = "SELECT max(ID) FROM namesDicts;";
+        try {
+            //results = statement.executeQuery(selectMAXID);
+            results = statement.executeQuery(selectMaxID);
+            int id = results.getInt("max(ID)");
+            String addDictionaryTittle = String.format("INSERT INTO namesDicts(id,shortName,longName,parts,startDate) VALUES(%d,'%s','%s','%s','%s');",
+                    id, dictName, longName[0].trim(), longName[1].trim(),startDate);
+            statement.execute(addDictionaryTittle);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 //    INSERT INTO destination_table(id,name)

@@ -184,10 +184,17 @@ public class Controller {
 
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            System.out.println("Ok was pressed");
+            System.out.println("Ok New Dict was pressed");
             // got action if checked ! ------------------
             //wcontroller.checkUpdateRating(data);
 //            dictionaryTable.setItems(data.getWords());
+            String dictName = wcontroller.getDictShortname();
+            String dictTitle = wcontroller.getNewDictFullName();
+            String startDate = wcontroller.getNewDictDate();
+            data.createNewDict(dictName,dictTitle,startDate);
+            addDictNamesMenuItems();
+
+            //data
 
 
         }
