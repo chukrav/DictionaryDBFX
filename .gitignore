@@ -8,3 +8,4 @@ src/main/resources/templates.list
 src/main/resources/gitignore/*
 out/
 data/
+!data/dictionaryNZ.db
