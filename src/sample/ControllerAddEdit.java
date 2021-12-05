@@ -58,7 +58,8 @@ public class ControllerAddEdit {
 
     public void insertNewWord() {
         if (!checkWordIncluded()) {
-            DBDealer.getInstance().setWorkDictionary("HP3_16_22");
+//            DBDealer.getInstance().setWorkDictionary("HP3_16_22");
+//            DBDealer.getInstance().getWorkDictionary();
             Word word = new Word();
             word.setWord(wordField.getText());
             word.setTranslate(translateField.getText());

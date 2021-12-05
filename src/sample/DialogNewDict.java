@@ -1,20 +1,20 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 
-import java.awt.*;
 
 public class DialogNewDict {
     private DBDealer dealer;
 
     @FXML
-    public TextField newDictName;
+    private TextField newDictName;
 
     @FXML
-    public TextField newDictFullName;
+    private TextField newDictFullName;
 
     @FXML
-    public TextField newDictDate;
+    private TextField newDictDate;
 
 
 
