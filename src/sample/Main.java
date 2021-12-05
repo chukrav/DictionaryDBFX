@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         primaryStage.setTitle("My Dictionary");
-        primaryStage.setScene(new Scene(root, 1000, 600));
+        primaryStage.setScene(new Scene(root, 1200, 600));
         primaryStage.setOnCloseRequest(e->{
             DBDealer.getInstance().closeAll();
             System.out.println("System quits =============>");
