@@ -193,10 +193,7 @@ public class Controller {
             String startDate = wcontroller.getNewDictDate();
             data.createNewDict(dictName,dictTitle,startDate);
             addDictNamesMenuItems();
-
             //data
-
-
         }
     }
 
@@ -261,6 +258,7 @@ public class Controller {
             System.out.println("Ok was pressed");
             ControllerAddEdit addEdit = fxmlLoader.getController();
             addEdit.insertNewWord();
+            data.refreshDictDB();
         }
     }
 
