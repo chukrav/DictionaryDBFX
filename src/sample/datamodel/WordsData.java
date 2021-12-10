@@ -157,6 +157,9 @@ public class WordsData {
             if (firstSq > 0) {
                 transcript = transl.substring(firstSq).trim();
                 transl = transl.substring(0, firstSq);
+                int lastComa = transl.lastIndexOf(",");
+                if (lastComa>0)
+                    transl = transl.substring(0, lastComa);
             }
             words.add(new Word(word, transl, transcript, rating));
         }

@@ -61,8 +61,12 @@ public class ControllerAddEdit {
 //            DBDealer.getInstance().setWorkDictionary("HP3_16_22");
 //            DBDealer.getInstance().getWorkDictionary();
             Word word = new Word();
-            word.setWord(wordField.getText());
-            word.setTranslate(translateField.getText());
+            String checkWord = wordField.getText();
+            checkWord = checkWord.replaceAll("'","''");
+            word.setWord(checkWord);
+            checkWord = translateField.getText();
+            checkWord = checkWord.replaceAll("'","''");
+            word.setTranslate(checkWord);
             String transcriptTxt = transcriptField.getText();
             transcriptTxt = transcriptTxt.replaceAll("'","''");
             word.setTranscript(transcriptTxt);
