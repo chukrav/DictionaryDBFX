@@ -1,5 +1,6 @@
 package strings;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -8,6 +9,11 @@ import java.util.regex.Pattern;
 
 public class FindReplace {
 
+    private String templateFile = "src/strings/IELTS_02.html";
+    private String outFile = "src/strings/outfile.html";
+    private BufferedReader br;
+    private FileWriter filewriter = null;
+    private boolean isPrintTemplate = true;
 
     private String mTitle = "<title>Cambridge Practice Tests for IELTS 1. Pt. 2</title>";
     private String replaceTitle = "1 Harry Potter and the Sorcerers Stone. Pts 1-41 Harry Potter and the Sorcerers Stone. Pts 1-4";
@@ -18,7 +24,7 @@ public class FindReplace {
     private String P03S = "<p>";
     private String P03F = "</p>";
 
-    private String reppattern;
+    private String reppattern = "=============";
 
     private Pattern pattern;
     private int patternID = 0;
@@ -32,8 +38,21 @@ public class FindReplace {
 //        patternsList.add(P02F);
         patternsList.add("p");
 //        patternsList.add(P03F);
+        patternsList.add("tbody");
 
         pattern = Pattern.compile(patternsList.get(patternID));
+
+    }
+
+    public void writeOutHTML(String line) {
+        try {
+            if (filewriter == null) {
+                filewriter = new FileWriter(new File(outFile));
+            }
+            filewriter.write(line+"\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void findPatterns() {
@@ -56,9 +75,16 @@ public class FindReplace {
     }
 
     public String replacePattern(String inpLine) {
+
         Matcher matcher = pattern.matcher(inpLine.toLowerCase());
         if (matcher.find()) {
             System.out.println("Gotcha!!! ..........");
+            if (patternID == patternsList.size() - 1) {
+                isPrintTemplate = false;
+                pattern = Pattern.compile("<!-------");
+                return inpLine;
+            }
+
             String patt = patternsList.get(patternID);
             int first = inpLine.indexOf(patt);
             first = inpLine.indexOf(">", first);
@@ -74,6 +100,7 @@ public class FindReplace {
             return inpLine;
         }
         return inpLine;
+//        writeOutHTML(inpLine);
     }
 
     public void setReppattern(String reppattern) {
@@ -82,7 +109,36 @@ public class FindReplace {
 
     public static void main(String[] args) {
         FindReplace fr = new FindReplace();
-        fr.findPatterns();
+//        fr.findPatterns();
+        fr.readTemplate();
+    }
+
+    public void readTemplate() {
+        try {
+            String line;
+            br = new BufferedReader(new FileReader(templateFile));
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+                if (isPrintTemplate) {
+                    line = replacePattern(line);
+                    writeOutHTML(line);
+                } else {
+                    writeTable();
+//                    line = br.readLine();
+                    isPrintTemplate = true;
+                }
+            }
+            filewriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeTable() {
+        System.out.println("========= My table =========================");
+
     }
 
 }
