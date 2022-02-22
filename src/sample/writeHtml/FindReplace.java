@@ -1,4 +1,4 @@
-package strings;
+package sample.writeHtml;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 
 public class FindReplace {
 
-    private String templateFile = "src/strings/IELTS_02.html";
-    private String outFile = "src/strings/outfile.html";
+    private String templateFile = "src/sample/writeHtml/IELTS_02.html";
+    private String outFile = "src/sample/writeHtml/outfile.html";
     private BufferedReader br;
     private FileWriter filewriter = null;
     private boolean isPrintTemplate = true;
@@ -24,7 +24,7 @@ public class FindReplace {
     private String P03S = "<p>";
     private String P03F = "</p>";
 
-    private String reppattern = "=============";
+    private String reppattern = "=======OOO======";
 
     private Pattern pattern;
     private int patternID = 0;
