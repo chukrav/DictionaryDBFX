@@ -1,5 +1,7 @@
 package sample.writeHtml;
 
+import sample.WriteDictName;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,26 +11,39 @@ import java.util.regex.Pattern;
 
 public class FindReplace {
 
-    private String templateFile = "src/sample/writeHtml/IELTS_02.html";
-    private String outFile = "src/sample/writeHtml/outfile.html";
+//    private String templateFile = "src/sample/writeHtml/IELTS_02.html";
+//    private String outFile = "src/sample/writeHtml/outfile.html";
+    private String templateFile = "data/IELTS_02.html";
+    private String outFile = "data/outfile.html";
     private BufferedReader br;
     private FileWriter filewriter = null;
     private boolean isPrintTemplate = true;
 
-    private String mTitle = "<title>Cambridge Practice Tests for IELTS 1. Pt. 2</title>";
-    private String replaceTitle = "1 Harry Potter and the Sorcerers Stone. Pts 1-41 Harry Potter and the Sorcerers Stone. Pts 1-4";
-    private String P01S = "<title>";
-    private String P01F = "</title>";
-    private String P02S = "<h3>";
-    private String P02F = "</h3>";
-    private String P03S = "<p>";
-    private String P03F = "</p>";
+//    private String mTitle = "<title>Cambridge Practice Tests for IELTS 1. Pt. 2</title>";
+//    private String replaceTitle = "1 Harry Potter and the Sorcerers Stone. Pts 1-41 Harry Potter and the Sorcerers Stone. Pts 1-4";
+//    private String P01S = "<title>";
+//    private String P01F = "</title>";
+//    private String P02S = "<h3>";
+//    private String P02F = "</h3>";
+//    private String P03S = "<p>";
+//    private String P03F = "</p>";
 
-    private String reppattern = "=======OOO======";
+    private String reppattern = "=======OOO5======";
 
     private Pattern pattern;
     private int patternID = 0;
     private List<String> patternsList;
+
+    private List<MRecord> records;
+    private List<String> titles;
+
+    public void setRecords(List<MRecord> records) {
+        this.records = records;
+    }
+
+    public void setTitles(List<String> titles) {
+        this.titles = titles;
+    }
 
     public FindReplace() {
         patternsList = new ArrayList<>();
@@ -54,7 +69,7 @@ public class FindReplace {
             e.printStackTrace();
         }
     }
-
+/*
     public void findPatterns() {
 //        Pattern pattern = Pattern.compile(P01S);
         Matcher matcher = pattern.matcher(mTitle.toLowerCase());
@@ -73,7 +88,7 @@ public class FindReplace {
         buffer.replace(first, last, replaceTitle);
         System.out.println(buffer.toString());
     }
-
+*/
     public String replacePattern(String inpLine) {
 
         Matcher matcher = pattern.matcher(inpLine.toLowerCase());
@@ -92,6 +107,7 @@ public class FindReplace {
             int last = inpLine.indexOf(patt, first);
             last -= 2;
             StringBuffer buffer = new StringBuffer(inpLine);
+            reppattern = titles.get(patternID);
             buffer.replace(first, last, reppattern);
             inpLine = buffer.toString();
             patternID += 1;
@@ -103,13 +119,12 @@ public class FindReplace {
 //        writeOutHTML(inpLine);
     }
 
-    public void setReppattern(String reppattern) {
-        this.reppattern = reppattern;
-    }
+//    public void setReppattern(String reppattern) {
+//        this.reppattern = reppattern;
+//    }
 
     public static void main(String[] args) {
         FindReplace fr = new FindReplace();
-//        fr.findPatterns();
         fr.readTemplate();
     }
 
@@ -118,7 +133,7 @@ public class FindReplace {
             String line;
             br = new BufferedReader(new FileReader(templateFile));
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
+//                System.out.println(line);
                 if (isPrintTemplate) {
                     line = replacePattern(line);
                     writeOutHTML(line);
@@ -137,8 +152,33 @@ public class FindReplace {
     }
 
     private void writeTable() {
-        System.out.println("========= My table =========================");
+//        System.out.println("========= My table =========================");
+        String outLine;
+        for (MRecord item:records) {
+            outLine = "<tr><td>"+item.getWord()+"</td><td>"+item.getTranslate()+"</td></tr>";
+            writeOutHTML(outLine);
+        }
 
     }
 
+
+/*
+    private class MRecord {
+        public String getWord() {
+            return word;
+        }
+
+        public String getTranslate() {
+            return translate;
+        }
+
+        private String word;
+        private String translate;
+
+        MRecord(String word, String translate) {
+            this.word = word;
+            this.translate = translate;
+        }
+    }
+*/
 }
